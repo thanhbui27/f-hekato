@@ -1,0 +1,88 @@
+@import '../../../../assets/styles/variables';
+
+.card__v2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+    &:hover {
+        .card__v2__action {
+            transform: translateX(0%);
+        }
+    }
+    &__top {
+        position: relative;
+        width: 100%;
+        background-color: #F6F7FB;
+        padding-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 223px;
+            height: 223px;       
+            object-fit: cover;      
+            text-align: center;
+        }
+    }
+    &__action {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;    
+        transform: translateX(-200%);
+        transition: 1s;
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            li {
+                padding: 8px;
+                border-radius: 30px ;
+                background-color: #EEEFFB;
+                display: grid;
+                align-content: center;
+                box-shadow: 0px 3px 6px 2px cornflowerblue;
+                img {
+                    width: 17px;
+                    height: 17px;
+                    color: #1389FF;
+                }
+            }
+        }
+    }
+    &__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        transition: 2s;
+        padding-bottom: 12px;     
+        h2 {
+            font-family: Lato-Bold;
+            color: #151875;
+            font-size: 16px;
+            line-height: calc(18px/16px);
+        }
+      
+    }
+    &__price {
+        span {        
+            font-family: Lato-Bold;
+            font-size: 14px;
+            color: #151875;
+            line-height: calc(16px/14px);  
+        }
+        .price-old {
+            margin-left: 15px;
+            color: $color-pink;
+            text-decoration: line-through;
+        }
+    }
+  
+}

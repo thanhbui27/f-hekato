@@ -1,0 +1,11 @@
+@import "../../../assets/styles/variables";
+
+.btn {
+    background-color: $color-pink;
+    display: flex;
+    align-items: center;
+    cursor: pointer; 
+    border-radius: 5px ;
+    font-family: JosefinSans-Bold;
+    color: $color-white;
+}

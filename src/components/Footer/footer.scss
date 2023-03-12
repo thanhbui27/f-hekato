@@ -1,0 +1,73 @@
+.footer {
+    margin-top: 300px;
+    padding: 100px 0 0 0;
+    background-color: #EEEFFB;
+    .logo {
+        font-family: JosefinSans-Bold;
+        font-size: 34px;
+        line-height: 1;
+        color: #000;
+    }
+    &-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr 1fr;
+        grid-gap: 0 50px;
+    }
+    &-item{
+        margin-bottom: 21px;
+    }
+    &-links {
+        list-style-type: none;
+    }
+    &-link{
+        color: inherit;
+        line-height: calc(21/16);
+        font-size: 16px;
+        white-space: nowrap;
+        color:#8A8FB9;
+    }
+    &-heading {
+        font-size: 22px;
+        line-height: calc(25/22);
+            white-space: nowrap;
+    }
+    &__search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 317px; 
+        margin: 25px 0;  
+        background-color: #FFFFFF;      
+        padding: 5px;
+        input {
+            font-family: JosefinSans-Bold;
+            font-size: 14px;
+            color: #8d8686;
+            padding-left: 10px;
+            width: 100%;
+            height: 38px;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            border-radius: 10px;            
+        }
+        span {
+            padding: 13px 40px;
+            white-space: nowrap;
+        }
+
+    }
+    .copy-r{
+        background-color: #E7E4F8;
+        padding: 20px 0;
+        margin-top: 50px;
+        .netw img {
+            margin: 0 10px;
+        }
+    }
+    .flex-bt{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

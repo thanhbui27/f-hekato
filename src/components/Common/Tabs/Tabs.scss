@@ -1,0 +1,23 @@
+@import "../../../assets/styles/variables";
+
+.tabs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 58px;
+    &__item {
+        cursor: pointer;
+        span {
+            font-size: 18px;
+            line-height: calc(22px/18px);
+            &:hover{
+                color: $color-pink;
+                text-decoration-line: underline;
+            }
+        }
+        .active {
+            color: $color-pink;
+            text-decoration-line: underline;
+        }
+    }
+}

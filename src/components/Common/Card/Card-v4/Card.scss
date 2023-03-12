@@ -1,0 +1,31 @@
+.card__v4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    box-shadow: 1px 8px 40px 0px #31208A0D;
+    padding: 10px;
+    &__top {
+        padding: 36px 38px;
+        background-color: #F6F7FB;
+        img{
+            width: 171px;
+            height: 171px;
+        }
+    }
+    &__bottom {
+        span {
+            font-size: 14px;
+            line-height: 1;
+        }
+    }
+    &__price {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        .price__old {
+            color: #1518754D;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+.intro__sub{
+    &__bg {
+        background-image: url('../../assets/images/bg.png');
+        height: 426px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        h2 {
+            text-align: center;
+            width:  600px;
+            font-size: 35px;
+            line-height: calc(55px/35px);
+        }
+        span {
+            padding: 15px 35px;
+        }
+    }
+    &__support {
+        margin: 96px 0;
+        width: 100%;
+        display: grid;
+        place-items: center;
+        img {
+            margin: auto;
+        }
+
+    }
+}

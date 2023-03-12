@@ -1,0 +1,64 @@
+.discount__slide {
+    display: flex;
+    align-items: center;
+    &__left{
+        flex:  1 1 50%;
+        h3{
+            font-size: 35px;
+            line-height: calc(46px/35px);
+            color: #151875;
+            margin: 0;
+        }
+        h5 {
+            font-size: 21px;
+            line-height: calc(27px/21px);
+            color: #FB2E86;
+            font-family : JosefinSans-Light;
+            font-weight: bold;
+            margin: 16px 0;
+        }
+        p {
+            font-size: 17px;
+            line-height: calc(30px/17px);
+            font-size: Lato-Bold;
+            color: #B7BACB;
+        }
+        ul {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 33px 0;
+            li {
+                font-size: 17px;
+                line-height: calc(30px/17px);
+                font-size: Lato-Bold;
+                color: #B7BACB;
+                flex:  1 1 50%;
+            }
+        }
+        span {
+            padding: 14px 24px;
+        }
+    }
+    &__right{
+        flex:  1 1 50%;
+        display: grid;
+        place-items: center;
+        position: relative;
+        img {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+        }
+        .circle {
+            width: 472px;
+            height: 472px;
+            border-radius: 50%;
+            background-color: #FCECF1;
+            position: absolute;
+            z-index: 1;
+        }
+    }
+}
