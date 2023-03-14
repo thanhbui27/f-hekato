@@ -1,0 +1,37 @@
+.product__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 126px;
+        &__action {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            .action__flex{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+            }
+            .view {
+                img {
+                    width: 15px;
+                    height: 15px;
+                    cursor: pointer;
+                }
+            }
+            input {
+                background-color: transparent;
+                border: 1px solid #E7E6EF;
+                outline: none;
+                width: 55px;
+                height: 25px;
+            }
+        }
+    }
+}
