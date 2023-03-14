@@ -1,0 +1,72 @@
+.list__option {
+    margin-bottom: 45px;
+    h4 {
+        font-size: 20px;
+        line-height: calc(30/20);
+        text-decoration: underline;
+        margin-top: 0;
+        margin-bottom: 35px;
+    }
+    .space-top {
+        margin-top: 45px;
+    }
+}
+
+.item__combox {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    input[type=checkbox] {
+        visibility: hidden;
+        cursor: pointer;
+        &:active ~ .geekmark {
+            background-color: red;
+        }
+        &:checked ~ .geekmark:after {
+            display: block;
+           
+        }
+        &:checked ~ .geekmark {
+            background-color: var(--colorChecked);
+        }
+    }
+    .geekmark {
+        position: absolute;
+        top: 5px;
+        left: 0;
+        height: 16px;
+        width: 16px;
+        background-color: var(--colorNor);
+        cursor: pointer;
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            bottom: 5px;
+            width: 3px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+    // &:hover input ~ .geekmark {
+    //     background-color: yellow;
+    // }
+    
+    label {
+        color: #7E81A2;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: calc(30/16);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}

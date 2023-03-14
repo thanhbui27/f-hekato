@@ -1,0 +1,14 @@
+export interface IOption {
+    id : number,
+    title : string,
+    value : string,
+    icon? : JSX.Element
+}
+
+export interface IProductListOption {
+    id : number,
+    title? : string,
+    option? : IOption[],
+    colorChecked : string,
+    colorNor : string,
+}
