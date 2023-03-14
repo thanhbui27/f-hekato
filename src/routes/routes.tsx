@@ -1,5 +1,7 @@
 import { RouteObject } from "react-router-dom";
+import NotFound from "../pages/404";
 import Home from "../pages/Home";
+import Product from "../pages/Product";
 import RootPage from "./RootPage";
 
 export const routes = () : RouteObject[] => [
@@ -17,7 +19,7 @@ export const routes = () : RouteObject[] => [
             },
             {
                 path: "/products",
-                element : <Home />
+                element : <Product />
             },
             {
                 path: "/blog",
@@ -31,6 +33,10 @@ export const routes = () : RouteObject[] => [
                 path: "/contact",
                 element : <Home />
             },
+            {
+                path : "*",
+                element : <NotFound />
+            }
         ]
     }
 ]
