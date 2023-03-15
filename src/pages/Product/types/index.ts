@@ -1,3 +1,10 @@
+
+export enum EView {
+    "GRIDVIEW" = "gridview",
+    "LISTVIEW" = "listview"
+}
+
+
 export interface IOption {
     id : number,
     title : string,
