@@ -1,6 +1,7 @@
 import './UniqueFeature.scss'
-import image from "../../assets/images/image-9.png";
-import CustomerButton from '../Common/CustomerButton';
+import image from "../../../../assets/images/image-9.png";
+import CustomerButton from '../../../../components/Common/CustomerButton';
+
 
 const UniqueFeature: React.FC = () => {
     return (
@@ -18,12 +19,12 @@ const UniqueFeature: React.FC = () => {
                         <li color='#2BF5CC'><p>Arms, backs and seats are structurally reinforced</p></li>
                     </ul>
                     <div className="action">
-                    <CustomerButton element={<span>Add To Cart</span>} />
-                    <span>B&B Italian Sofa <br/> $32.00</span>
-                    </div>               
+                        <CustomerButton element={<span>Add To Cart</span>} />
+                        <span>B&B Italian Sofa <br /> $32.00</span>
+                    </div>
                 </div>
             </div>
-         
+
         </div>
     )
 }
