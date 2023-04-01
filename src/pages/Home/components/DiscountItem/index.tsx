@@ -1,7 +1,7 @@
 import './discount-item.scss'
-import image from "../../assets/images/image-9.png";
-import CustomerButton from '../Common/CustomerButton';
-import tick from "../../assets/icons/tick.svg";
+import image from "../../../../assets/images/image-9.png";
+import CustomerButton from '../../../../components/Common/CustomerButton';
+import tick from "../../../../assets/icons/tick.svg";
 
 const DiscountItem : React.FC = () => {
     return (

@@ -1,6 +1,5 @@
-import Promotion from "../../components/Promotion"
+import Promotion from "./components/Promotion"
 import Slider from "react-slick";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Home.scss";
@@ -16,13 +15,13 @@ import image_2 from '../../assets/images/image-8.png'
 import image_3 from '../../assets/images/image-9.png'
 import image_4 from '../../assets/images/image-10.png'
 import CardV3 from "../../components/Common/Card/Card-v3";
-import UniqueFeature from "../../components/UniqueFeature";
+import UniqueFeature from "./components/UniqueFeature";
 import CardV4 from "../../components/Common/Card/Card-v4";
 import CardV5 from "../../components/Common/Card/Card-v5";
 import CardV6 from "../../components/Common/Card/Card-v6";
-import DiscountItem from "../../components/DiscountItem";
+import DiscountItem from "./components/DiscountItem";
 import CardV7 from "../../components/Common/Card/Card-v7";
-import IntroSub from "../../components/IntroSub";
+import IntroSub from "./components/IntroSub";
 import CardBlog from "../../components/Common/Card/Card-Blog";
 
 

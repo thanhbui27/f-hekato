@@ -1,5 +1,5 @@
-import CustomerButton from "../Common/CustomerButton";
-import lamp from "../../assets/images/image-12.png";
+import CustomerButton from "../../../../components/Common/CustomerButton";
+import lamp from "../../../../assets/images/image-12.png";
 import "./Promotion.scss";
 
 interface PromotionProps {
