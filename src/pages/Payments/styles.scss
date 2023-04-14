@@ -1,0 +1,89 @@
+.payment {
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__cart {
+      .table-TablePayment-body {
+        height: 638px;
+        overflow: hidden;
+        transition: 1s;
+        width: 100%;
+        position: relative;
+        &:hover {
+          overflow-y: scroll;
+          transition: 1s;
+        }
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+  
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+        }
+  
+        &::-webkit-scrollbar-thumb {
+          background: #fb2e86;
+          border-radius: 10px;
+        }
+      }
+    }
+    &__infomation {
+      padding: 65px 30px;
+      background: #F8F8FD;
+      width: 770px;
+      height: 920px;
+      margin-right: 25px;
+      .contact-infomation {
+        span {
+          font-size: 12px;
+          line-height: calc(15 / 12);
+          margin-top: 32px;
+          display: block;
+          color: #8a91ab;
+        }
+      }
+      .shipping-address {
+        margin: 100px 0;
+        .info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 20px;
+          margin: 35px 0;
+        }
+
+        .list-payment {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 20px;
+          img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 10px;
+            cursor: pointer;
+            &:hover {
+              border: 1px solid #8a91ab;
+            }
+          }
+          .normal-payment {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            text-align: center;
+            background-color: #fff;
+            cursor: pointer;
+            &:hover {
+              border: 1px solid #8a91ab;
+            }
+          }
+        }
+      }
+    }
+  }
+}

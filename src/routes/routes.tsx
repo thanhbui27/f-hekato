@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Product from "../pages/Product";
 import RootPage from "./RootPage";
 import Cart from "../pages/Cart";
+import Payment from "../pages/Payments";
 
 export const routes = () : RouteObject[] => [
     {
@@ -42,6 +43,10 @@ export const routes = () : RouteObject[] => [
             {
                 path: "/contact",
                 element : <Home />
+            },
+            {
+                path: "/payment",
+                element : <Payment />
             },
             {
                 path : "*",
