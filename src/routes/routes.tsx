@@ -6,6 +6,8 @@ import Product from "../pages/Product";
 import RootPage from "./RootPage";
 import Cart from "../pages/Cart";
 import Payment from "../pages/Payments";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
 
 export const routes = () : RouteObject[] => [
     {
@@ -15,6 +17,14 @@ export const routes = () : RouteObject[] => [
             {
                 index : true,
                 element : <Home />
+            },
+            {
+                path: "/register",
+                element : <Register />
+            },
+            {
+                path: "/login",
+                element : <Login />
             },
             {
                 path: "/pages",
