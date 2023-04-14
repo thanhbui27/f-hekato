@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import Tabs from '../../../../components/Common/Tabs'
 import { dataTabs } from '../../constants'
 import { tabs } from '../../types'
-import Comments from './components/comments'
+import Comments from './components/editorComments'
 import Description from './components/description'
 import './styles.scss'
+import ListComments from './components/listComments'
 
 const MoreInfoProduct = () => {
 
@@ -24,7 +25,10 @@ const MoreInfoProduct = () => {
                 )
             case tabs.REVIEWS:
                 return (
-                    <Comments />
+                    <Fragment>
+                        <Comments />
+                        <ListComments />
+                    </Fragment>
                 )
             default:
                 break;

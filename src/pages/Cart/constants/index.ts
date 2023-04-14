@@ -1,0 +1,60 @@
+import image from "../../../assets/images/img-cart.png";
+
+export const data = [
+  {
+    id: 1,
+    image: image,
+    name : "Túi xách siêu đẹp",
+    price: "$32.00",
+    total: "$32.00",
+    quantity: 3,
+  },
+  {
+    id: 2,
+    image: image,
+    name : "Túi xách siêu đẹp",
+    price: "$32.00",
+    total: "$32.00",
+    quantity: 3,
+  },
+  {
+    id: 3,
+    image: image,
+    name : "Túi xách siêu đẹp",
+    price: "$32.00",
+    total: "$32.00",
+    quantity: 3,
+  },
+  {
+    id: 4,
+    image: image,
+    name : "Túi xách siêu đẹp",
+    price: "$32.00",
+    total: "$32.00",
+    quantity: 3,
+  },
+  {
+    id: 5,
+    image: image,
+    name : "Túi xách siêu đẹp",
+    price: "$32.00",
+    total: "$32.00",
+    quantity: 3,
+  },
+  {
+    id: 6,
+    image: image,
+    name : "Túi xách siêu đẹp",
+    price: "$32.00",
+    total: "$32.00",
+    quantity: 3,
+  },
+  {
+    id: 7,
+    image: image,
+    name : "Túi xách siêu đẹp",
+    price: "$32.00",
+    total: "$32.00",
+    quantity: 3,
+  },
+];

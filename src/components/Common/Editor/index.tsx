@@ -36,7 +36,6 @@ const EditorJodit = () => {
   return (
     <>
       <JoditEditor onChange={(content) => setValue(content)} value="" config={config} />
-      {value}
     </>
   );
 };

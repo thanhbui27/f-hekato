@@ -4,6 +4,7 @@ import DetailsProduct from "../pages/DetailsProduct";
 import Home from "../pages/Home";
 import Product from "../pages/Product";
 import RootPage from "./RootPage";
+import Cart from "../pages/Cart";
 
 export const routes = () : RouteObject[] => [
     {
@@ -25,6 +26,10 @@ export const routes = () : RouteObject[] => [
             {
                 path: "/products/:pid",
                 element : <DetailsProduct />
+            },
+            {
+                path: "/cart",
+                element : <Cart />
             },
             {
                 path: "/blog",

@@ -21,7 +21,8 @@ const Header : React.FC = () => {
                     <div className="header__barRight">
                         <span>Login <img src={User} alt="" /> </span>
                         <span>Wishlist <img src={Heart} alt="" /> </span>
-                        <span><img src={Cart} alt="" /> </span>
+                        <Link to={"/cart"}>  <span><img src={Cart} alt="" /> </span></Link>
+                  
                     </div>
                 </div>
             </div>
