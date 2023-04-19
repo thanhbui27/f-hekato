@@ -19,7 +19,7 @@ const Header : React.FC = () => {
                         <span> <img src={Phone} alt="" />  0393256471</span>
                     </div>
                     <div className="header__barRight">
-                        <span>Login <img src={User} alt="" /> </span>
+                         <Link to={"/login"}><span>Login <img src={User} alt="" /> </span></Link>                
                         <span>Wishlist <img src={Heart} alt="" /> </span>
                         <Link to={"/cart"}>  <span><img src={Cart} alt="" /> </span></Link>
                   
