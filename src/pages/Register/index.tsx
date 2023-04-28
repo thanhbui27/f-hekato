@@ -1,7 +1,56 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import "./styles.scss";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { RegisterParams } from "src/services/api/auth/types";
+import { alert } from "src/components/Common/Alert";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { userRegister } from "src/store/auth/slice";
+
+interface IRegister extends RegisterParams {
+  confirmPassword: string;
+}
+const phoneRegExp = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g
+const emailRegExp = /^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/
+const passwordReg = /^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8}$/
+const schema = yup.object().shape({
+  fullName: yup.string().required(),
+  email: yup.string().required().matches(emailRegExp, "Email không đúng định dạng"),
+  password: yup.string().required().matches(passwordReg, "Mật khẩu phải > 8 kí tự và có ít nhất 1 chữ hoa 1 chữ số và 1 kí tự đặc biệt"),
+  phoneNumber: yup.string().required().matches(phoneRegExp, "Số điện thoại không đúng định dạng"),
+  userName: yup.string().required(),
+  confirmPassword : yup.string().required()
+});
 
 const Register = () => {
+  const dispatch = useAppDispatch()
+  const { register, handleSubmit } = useForm<IRegister>();
+  const nav = useNavigate()
+  const onSubmit: SubmitHandler<IRegister> = (data: IRegister) => {
+    if (data.password !== data.confirmPassword) {
+      alert("error", "Password không trùng nhau");
+      return;
+    };
+
+    schema
+      .validate(data)
+      .then(async function(value) {
+         const res = await dispatch(userRegister(value))
+         if(userRegister.fulfilled.match(res)){
+          nav("/login")
+          alert("success", "Đăng ký thành công")
+         }else {
+          alert("error", "Đăng ký thất bại")
+         }
+      })
+      .catch(function(err) {
+        if(err.message){
+          alert("error", err.message);
+        }
+        console.log(err.message);
+      });
+  };
+
   return (
     <div className="register">
       <div className="slide__bar">
@@ -11,58 +60,63 @@ const Register = () => {
         </div>
       </div>
       <div className="container">
-  
         <div className="content">
-        <div className="title">Đăng ký</div>
-          <form action="#">
+          <div className="title">Đăng ký</div>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="user-details">
               <div className="input-box">
                 <span className="details">Full Name</span>
-                <input type="text" placeholder="Enter your name" required />
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  {...register("fullName")}
+                  required
+                />
               </div>
               <div className="input-box">
                 <span className="details">Username</span>
-                <input type="text" placeholder="Enter your username" required />
+                <input
+                  type="text"
+                  placeholder="Enter your username"
+                  {...register("userName")}
+                  required
+                />
               </div>
               <div className="input-box">
                 <span className="details">Email</span>
-                <input type="text" placeholder="Enter your email" required />
+                <input
+                  type="text"
+                  placeholder="Enter your email"
+                  {...register("email")}
+                  required
+                />
               </div>
               <div className="input-box">
                 <span className="details">Phone Number</span>
-                <input type="text" placeholder="Enter your number" required />
+                <input
+                  type="text"
+                  placeholder="Enter your number"
+                  {...register("phoneNumber")}
+                  required
+                />
               </div>
               <div className="input-box">
                 <span className="details">Password</span>
-                <input type="text" placeholder="Enter your password" required />
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  {...register("password")}
+                  required
+                />
               </div>
               <div className="input-box">
                 <span className="details">Confirm Password</span>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Confirm your password"
                   required
+                  {...register("confirmPassword")}
                 />
-              </div>
-            </div>
-            <div className="gender-details">
-              <input type="radio" name="gender" id="dot-1" />
-              <input type="radio" name="gender" id="dot-2" />
-              <input type="radio" name="gender" id="dot-3" />
-              <span className="gender-title">Gender</span>
-              <div className="category">
-                <label htmlFor="dot-1">
-                  <span className="dot one"></span>
-                  <span className="gender">Male</span>
-                </label>
-                <label htmlFor="dot-2">
-                  <span className="dot two"></span>
-                  <span className="gender">Female</span>
-                </label>
-                <label htmlFor="dot-3">
-                  <span className="dot three"></span>
-                  <span className="gender">Prefer not to say</span>
-                </label>
               </div>
             </div>
             <div className="button">
@@ -70,13 +124,13 @@ const Register = () => {
             </div>
           </form>
           <div className="form-link">
-              <span>
-                you have an account?
-                <Link to="/login" className="link signup-link">
-                  Login
-                </Link>
-              </span>
-            </div>
+            <span>
+              you have an account?
+              <Link to="/login" className="link signup-link">
+                Login
+              </Link>
+            </span>
+          </div>
 
           <div className="line"></div>
 
@@ -95,7 +149,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 

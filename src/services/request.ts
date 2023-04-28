@@ -3,7 +3,7 @@ import queryString from "query-string";
 import { StoreType } from "../store/configureStore";
 
 const baseApiConfig = {
-  baseURL: "https://figureforyou.000webhostapp.com/",
+  baseURL: "https://localhost:7263/",
   headers: {
     "content-type": "application/json",
   },

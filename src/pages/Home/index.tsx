@@ -33,20 +33,9 @@ import DiscountItem from "./components/DiscountItem";
 import CardV7 from "../../components/Common/Card/Card-v7";
 import IntroSub from "./components/IntroSub";
 import CardBlog from "../../components/Common/Card/Card-Blog";
-import { AppDispatch } from "../../store/configureStore";
-import { useDispatch, useSelector } from "react-redux";
-import { getApiTest } from "../../store/test/slice";
-import { selectTest } from "../../store/test/selector";
 
 const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>(dataLeatestTabs[0].key);
-  const dispatch = useDispatch<AppDispatch>();
-  const select = useSelector(selectTest);
-  console.log(select)
-  useEffect(() => {
-    dispatch(getApiTest())
-  }, []);
-
   const handleClickTab = (tab: string) => {
     setActiveTab(tab);
   };
