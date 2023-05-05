@@ -3,6 +3,7 @@ export interface IUser  {
     dob: string,
     id: string,
     userName: string,
+    session : Session,
     normalizedUserName: string,
     email: string,
     normalizedEmail: string,
@@ -15,5 +16,18 @@ export interface IUser  {
     twoFactorEnabled: boolean,
     lockoutEnd: string | null,
     lockoutEnabled: boolean,
-    accessFailedCount: number
+    accessFailedCount: number,
+    address : string,
+    cmnd : string
 }
+
+export interface Session {
+    sessionId: number,
+     uid: string,
+}
+
+export type Response<T> = {
+    isSuccessed : boolean,
+    message : string
+    data : T;
+};

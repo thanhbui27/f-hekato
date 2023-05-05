@@ -11,9 +11,9 @@ export interface RegisterParams {
     password: string
 }
 
-export type Response<T> = {
-    isSuccessed : boolean,
-    message : string
-    data : T;
-};
+export interface RemoveItemParam {
+    Id : number 
+}
+
+
 

@@ -1,20 +1,13 @@
 import { useAppSelector } from "src/hooks/useAppSelector";
 import CustomerButton from "src/components/Common/CustomerButton";
 import "./styles.scss";
-import { alert } from "src/components/Common/Alert";
-import { useNavigate } from "react-router-dom";
 
 const CartTotal = () => {
-  const nav = useNavigate();
   const selectCart = useAppSelector((state) => state.cart.cart);
   const getTotal = selectCart.reduce((pre,next) => pre + next.quantity * next.productGetAll.priceNew ,0)
 
   const handleCheckout = () => {
-    if(selectCart.length=== 0){
-      alert("error", "giỏ hàng không được để trống" )
-      return;
-    }
-      nav("/payment")
+    console.log("checkout")
   }
 
   return (
