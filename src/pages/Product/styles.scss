@@ -11,6 +11,12 @@
     grid-template-columns: 1fr 3fr;
     margin-top: 100px;
     &__right {
+      .pagination {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       &__list {
         display: flex;
         justify-content: center;

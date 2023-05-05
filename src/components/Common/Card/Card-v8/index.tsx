@@ -1,28 +1,31 @@
 import './styles.scss'
-import image from '../../../../assets/images/image-1.png'
-import Cart from "../../../../assets/icons/cart.svg";
-import heart from "../../../../assets/icons/heart.svg";
-import search from "../../../../assets/icons/search-plus.svg";
-
-const CardV8 = () => {
+import Cart from "src/assets/icons/cart.svg";
+import heart from "src/assets/icons/heart.svg";
+import search from "src/assets/icons/search-plus.svg";
+import { product } from 'src/services/api/product/types';
+import { url } from 'src/services/request';
+interface PropsCardV {
+    product: product;
+  }
+const CardV8 : React.FC<PropsCardV> = ({product}) => {
     return (
         <div className="card__v8">
             <div className="card__v8__container">
-                <img src={image} alt="" />
+            <img src={`${url}Resources${product.list_image[0].url_image}`} alt="" />       
                 <div className="card__v8__container__content">
-                    <h4>Dictum morbi</h4>
+                    <h4>{product.productName}</h4>
                     <div className="price">
                         <span className='price-new'>
-                            $26.00
+                            {product.priceNew}
                         </span>
                         <span className="price-old">
-                            $52.00
+                        {product.priceOld}
                         </span>
 
                     </div>
 
                     <div className="details">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.</p>
+                        <p>{product.shortDetails}</p>
                     </div>
 
                     <div className="action">

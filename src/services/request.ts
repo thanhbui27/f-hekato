@@ -2,8 +2,10 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import queryString from "query-string";
 import { StoreType } from "../store/configureStore";
 
+export const url = "https://localhost:7263/"
+
 const baseApiConfig = {
-  baseURL: "https://localhost:7263/",
+  baseURL: url,
   headers: {
     "content-type": "application/json",
   },
@@ -29,6 +31,7 @@ export const setupInterceptor = (_store: StoreType) => {
       if (config.headers && accessToken) {
         config.headers["Authorization"] = `Bearer ${accessToken}`;
       }
+      console.log(accessToken)
       return config;
     },
     (error: AxiosError) => Promise.reject(error)

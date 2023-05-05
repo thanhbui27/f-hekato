@@ -83,10 +83,13 @@
         transition: 2s;
         padding-bottom: 12px;
         h2 {
-            font-family: Lato-Bold;
-            color: $color-pink;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 250px;
+            color: #FB2E86;
             font-size: 18px;
-            line-height: calc(22px/18px);
+            line-height: 1.2222222222;
             margin: 15px 0 6px 0;
         }
         span {

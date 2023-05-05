@@ -33,3 +33,14 @@ export const settings_promotion = {
     cssEase: "linear",
     arrows: false,
   };
+
+  export const settings_TrendingProduct = {
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 10000,
+    cssEase: "linear",
+    arrows: false,
+  };

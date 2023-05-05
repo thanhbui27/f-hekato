@@ -1,6 +1,6 @@
-import { IUser } from "src/types/users";
+import { IUser, Response } from "src/types/users";
 import request from "../../request";
-import { LoginParams, RegisterParams, Response } from "./types";
+import { LoginParams, RegisterParams } from "./types";
 
 const authApi = {
   login: async (data: LoginParams) =>

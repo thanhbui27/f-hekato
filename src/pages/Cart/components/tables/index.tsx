@@ -1,11 +1,11 @@
-import { ICart } from "../../types";
 import { TableBody } from "./TableBody";
 import "./styles.scss";
-interface PropsTable {
-  data: ICart[];
-}
+import { useAppSelector } from "src/hooks/useAppSelector";
 
-const Table: React.FC<PropsTable> = ({ data }) => {
+
+const Table: React.FC = () => {
+  const selectCart = useAppSelector((state) => state.cart.cart);
+  
   return (
     <div className="table-cart">
       <div className="table-cart-row">
@@ -23,8 +23,8 @@ const Table: React.FC<PropsTable> = ({ data }) => {
         </div>
       </div>
       <div className="table-cart-body">
-        {data.map((item) => (
-          <TableBody item={item} />
+        {selectCart.map((item,index) => (
+          <TableBody item={item} key={index} />
         ))}
       </div>
     </div>

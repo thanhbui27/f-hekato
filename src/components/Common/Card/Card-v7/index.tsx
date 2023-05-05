@@ -1,15 +1,20 @@
+import { url } from 'src/services/request';
 import './card.scss'
-import image from "../../../../assets/images/image-14.png";
+import { product } from 'src/services/api/product/types';
 
-const CardV7 : React.FC = () => {
+interface PropsCardV {
+    product: product;
+  }
+
+const CardV7 : React.FC<PropsCardV> = ({product}) => {
     return (
         <div className="card__v7">
             <div className="card__v7__image">
-                <img src={image} alt="" />             
+            <img src={`${url}Resources${product.list_image[0].url_image}`} alt="" />          
             </div>   
             <div className="circle"></div>
-            <h3>Mini LCW Chair</h3>
-            <span>$56.00</span>
+            <h3>{product.productName}</h3>
+            <span>{product.priceNew}</span>
         </div>
     )
 }

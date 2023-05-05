@@ -1,18 +1,19 @@
+import React, { forwardRef } from 'react';
 import './styles.scss';
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label : string;
 }
 
-const Input : React.FC<InputProps> = ({label,...rest}) => {
+const Input = forwardRef<HTMLInputElement,InputProps>(({label,...rest},refs) => {
   return (
     <div className="input-data">
-      <input type="text" required {...rest}/>
+      <input required {...rest} ref={refs}/>
       <div className="underline"></div>
       <label>{label}</label>
     </div>
   );
-};
+});
 
 export default Input
 
