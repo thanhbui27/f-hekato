@@ -1,7 +1,13 @@
-import userDefault from "../../../../../../../assets/images/user-default.png";
+import { IComment } from "src/types/comment";
+import userDefault from "src/assets/images/user-default.png";
+import Parser from 'html-react-parser';
 import "../styles.scss";
 
-const Comment = () => {
+interface IProps {
+  comment : IComment
+}
+
+const Comment : React.FC<IProps> = ({comment}) => {
   return (
     <div className="comment">
       <div className="user">
@@ -9,14 +15,14 @@ const Comment = () => {
           <img src={userDefault} alt="" />
         </div>
         <div className="user-meta">
-          <div className="name">Rajkamal</div>
-          <div className="day">10 day ago</div>
+          <div className="name">{comment.user.fullName}</div>
+          <div className="day" style={{marginTop : 10+"px"}}>{comment.createAt}</div>
         </div>
       </div>
 
       <div className="comment-details">
         <div className="rating">
-          {Array(5)
+          {Array(comment.rate)
             .fill(0)
             .map((_, i) => (
               <i
@@ -27,10 +33,9 @@ const Comment = () => {
             ))}
         </div>
         <div className="details">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-          maxime quo excepturi libero. Numquam accusamus perspiciatis deserunt
-          et est temporibus unde dolor aliquid, porro corporis architecto, nisi,
-          beatae maiores delectus.
+        {
+          Parser(comment.description)
+        }
         </div>
       </div>
     </div>

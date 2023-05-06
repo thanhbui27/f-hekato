@@ -20,11 +20,9 @@ export const TablePayment : React.FC<Props> = ({item}) => {
             />
           </div>
           <div className="product-info-content">
-            <h5>Ut diam consequat</h5>
+            <h5>{item.productGetAll.productName}</h5>
             <div className="category">
-              <span>Prestashop</span>
-              <span>Magento</span>
-              <span>Bigcommerce</span>
+            {item.productGetAll.categories.map((item,index) =>   <span>{item.categoryName}</span>)}
             </div>
           </div>
         </div>
