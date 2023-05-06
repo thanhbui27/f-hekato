@@ -1,4 +1,4 @@
-import { RouteObject } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 import NotFound from "../pages/404";
 import DetailsProduct from "../pages/DetailsProduct";
 import Home from "../pages/Home";
@@ -8,6 +8,11 @@ import Cart from "../pages/Cart";
 import Payment from "../pages/Payments";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import RootAdminPage from "./RootAdminPage";
+import DashboardAppPage from "src/admin/pages/DashboardAppPage";
+import UserPage from "src/admin/pages/UserPage";
+import ProductsPage from "src/admin/pages/ProductsPage";
+import BlogPage from "src/admin/pages/BlogPage";
 
 export const routes = () : RouteObject[] => [
     {
@@ -63,5 +68,17 @@ export const routes = () : RouteObject[] => [
                 element : <NotFound />
             }
         ]
+    },
+    {
+        path : "/admin/dashboard",
+        element : <RootAdminPage /> ,
+        children: [
+            { element: <Navigate to="/dashboard/app" />, index: true },
+            { path: 'app', element: <DashboardAppPage /> },
+            { path: 'user', element: <UserPage /> },
+            { path: 'products', element: <ProductsPage /> },
+            { path: 'blog', element: <BlogPage /> },
+          ],
+    
     }
 ]
