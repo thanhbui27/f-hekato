@@ -14,71 +14,70 @@ import UserPage from "src/admin/pages/UserPage";
 import ProductsPage from "src/admin/pages/ProductsPage";
 import BlogPage from "src/admin/pages/BlogPage";
 
-export const routes = () : RouteObject[] => [
-    {
-        path : "/",
-        element : <RootPage /> ,
-        children : [
-            {
-                index : true,
-                element : <Home />
-            },
-            {
-                path: "/register",
-                element : <Register />
-            },
-            {
-                path: "/login",
-                element : <Login />
-            },
-            {
-                path: "/pages",
-                element : <Home />
-            },
-            {
-                path: "/products",
-                element : <Product />
-            },
-            {
-                path: "/products/:pid",
-                element : <DetailsProduct />
-            },
-            {
-                path: "/cart",
-                element : <Cart />
-            },
-            {
-                path: "/blog",
-                element : <Home />
-            },
-            {
-                path: "/shop",
-                element : <Home />
-            },        
-            {
-                path: "/contact",
-                element : <Home />
-            },
-            {
-                path: "/payment",
-                element : <Payment />
-            },
-            {
-                path : "*",
-                element : <NotFound />
-            }
-        ]
-    },
-    {
-        path : "/admin/dashboard",
-        element : <RootAdminPage /> ,
-        children: [
-            { element: <Navigate to="/dashboard/app" />, index: true },
-            { path: 'app', element: <DashboardAppPage /> },
-            { path: 'user', element: <UserPage /> },
-            { path: 'products', element: <ProductsPage /> },
-            { path: 'blog', element: <BlogPage /> },
-          ],
-    
-    }
-]
+export const routes = (): RouteObject[] => [
+  {
+    path: "/",
+    element: <RootPage />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/pages",
+        element: <Home />,
+      },
+      {
+        path: "/products",
+        element: <Product />,
+      },
+      {
+        path: "/products/:pid",
+        element: <DetailsProduct />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/blog",
+        element: <Home />,
+      },
+      {
+        path: "/shop",
+        element: <Home />,
+      },
+      {
+        path: "/contact",
+        element: <Home />,
+      },
+      {
+        path: "/payment",
+        element: <Payment />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
+  {
+    path: "/admin/dashboard",
+    element: <RootAdminPage />,
+    children: [
+      { element: <Navigate to="/dashboard/app" />, index: true },
+      { path: "app", element: <DashboardAppPage /> },
+      { path: "user", element: <UserPage /> },
+      { path: "products", element: <ProductsPage /> },
+      { path: "blog", element: <BlogPage /> },
+    ],
+  },
+];

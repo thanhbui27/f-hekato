@@ -11,6 +11,7 @@ import ThemeProvider from "./admin/theme";
 import { StyledChart } from "./admin/components/chart";
 import ScrollToTop from "./admin/components/scroll-to-top/ScrollToTop";
 import { HelmetProvider } from "react-helmet-async";
+import 'simplebar-react/dist/simplebar.min.css';
 
 setupInterceptor(store);
 
