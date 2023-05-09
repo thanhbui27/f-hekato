@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productApi from "src/services/api/product";
-import { paramProduct, product } from "src/services/api/product/types";
+import { List_imageV2, paramProduct, product } from "src/services/api/product/types";
 import { IResponePagination } from "src/types/response";
 
 interface TProduct {
@@ -12,8 +12,58 @@ interface TProduct {
   productTrending: product[];
   productTrendSmall: product[];
   productGetAll: IResponePagination;
-  productById : product
+  productById: product;
+  list_image : List_imageV2[]
 }
+
+export const productCreate = createAsyncThunk(
+  "product/PRODUCT_CREATE",
+  async (data: FormData) => {
+    try {
+      const res = await productApi.createProduct(data);
+      return res.data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const uploadImageProduct = createAsyncThunk(
+  "product/UPLOAD_IMAGE_PRODUCT",
+  async (data : FormData) => {
+
+    try {
+      const res = await productApi.UploadImageProduct(data);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const getAllProductImage = createAsyncThunk(
+  "product/GET_ALL_PRODUCT_IMAGE",
+  async (id : number) => {
+    try {
+      const res = await productApi.getImageProductById(id);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const productUpdate = createAsyncThunk(
+  "product/PRODUCT_UPDATE",
+  async (data: FormData) => {
+    try {
+      const res = await productApi.updateProduct(data);
+      return res.data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
 
 export const getProductAll = createAsyncThunk(
   "product/PRODUCTGETALL",
@@ -99,14 +149,17 @@ export const getProductTrendSmall = createAsyncThunk(
   }
 );
 
-export const getProductById = createAsyncThunk("product/GETPRODUCTBYID", async (id : number) => {
-  try{
-    const res = await productApi.apiProductById(id)
-    return res
-  }catch(error){
-    return Promise.reject(error)
+export const getProductById = createAsyncThunk(
+  "product/GETPRODUCTBYID",
+  async (id: number) => {
+    try {
+      const res = await productApi.apiProductById(id);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
-})
+);
 
 const initialState: TProduct = {
   status: "request",
@@ -116,7 +169,7 @@ const initialState: TProduct = {
   productSeller: [],
   productTrending: [],
   productTrendSmall: [],
-  productById : {} as product,
+  productById: {} as product,
   productGetAll: {
     items: [],
     pageCount: 0,
@@ -124,6 +177,7 @@ const initialState: TProduct = {
     totalRecords: 0,
     pageSize: 0,
   },
+  list_image : [] 
 };
 
 const productReducer = createSlice({
@@ -131,6 +185,48 @@ const productReducer = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(productCreate.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(productCreate.fulfilled, (state, action) => {
+      state.status = "success";
+    });
+    builder.addCase(productCreate.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
+    builder.addCase(productUpdate.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(productUpdate.fulfilled, (state, action) => {
+      state.status = "success";
+    });
+    builder.addCase(productUpdate.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
+    builder.addCase(uploadImageProduct.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(uploadImageProduct.fulfilled, (state, action) => {
+      state.status = "success";
+    });
+    builder.addCase(uploadImageProduct.rejected, (state, action) => {
+      state.status = "rejected";
+
+    });
+
+    builder.addCase(getAllProductImage.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(getAllProductImage.fulfilled, (state, action) => {
+      state.status = "success";
+      state.list_image = action.payload.data.data
+    });
+    builder.addCase(getAllProductImage.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
     builder.addCase(getProductAll.pending, (state) => {
       state.status = "pending";
     });
@@ -149,7 +245,6 @@ const productReducer = createSlice({
     builder.addCase(getProductById.fulfilled, (state, action) => {
       state.productById = action.payload.data.data;
       state.status = "success";
-
     });
     builder.addCase(getProductById.rejected, (state, action) => {
       state.status = "rejected";

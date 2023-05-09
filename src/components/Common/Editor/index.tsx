@@ -34,7 +34,7 @@ const config = {
 const EditorJodit : React.FC<IProps> = ({value,setValue}) => {
   return (
     <>
-      <JoditEditor onChange={(content) => setValue(content)} value="" config={config} />
+      <JoditEditor onChange={(content) => setValue(content)} value={value} config={config} />
     </>
   );
 };

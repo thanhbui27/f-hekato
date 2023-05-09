@@ -3,10 +3,16 @@ export interface categories {
   categoryName: string;
 }
 
+
+
 export interface list_image {
   id: number;
   url_image: string;
   timeAdd: string;
+}
+
+export interface List_imageV2 extends list_image {
+  productId : number
 }
 
 export interface paramProduct {

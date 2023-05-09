@@ -5,6 +5,7 @@ import productReducer from './product/slice'
 import cartReducer from './cart/slice'
 import uploadReducer from './upload/slice'
 import commentReducer from './comment/slice'
+import cateReducer from './category/slice'
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from 'redux-persist';
 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   product : productReducer,
   cart : cartReducer,
   upload : uploadReducer,
-  comment : commentReducer
+  comment : commentReducer,
+  category : cateReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
