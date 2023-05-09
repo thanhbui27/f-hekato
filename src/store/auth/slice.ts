@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authApi from "../../services/api/auth";
 import { LoginParams, RegisterParams } from "../../services/api/auth/types";
-import { IUser } from "src/types/users";
+import { IUser, Role } from "src/types/users";
 
 export type TAuth = {
   me?: IUser;
   status : string
   accessToken?: string;
   isAuth: boolean;
+  isAdmin : boolean
 };
 
 export const authLogin = createAsyncThunk("auth/Login", async (data : LoginParams) => {
@@ -41,6 +42,7 @@ const initialState: TAuth = {
   status: "request",
   accessToken: "",
   isAuth: false,
+  isAdmin : false
 };
 
 const authSlice = createSlice({
@@ -49,6 +51,7 @@ const authSlice = createSlice({
   reducers: {
     logout(state) {
         state.isAuth = false;
+        state.isAdmin = false;
         state.accessToken = undefined;
         state.me = {} as IUser;
     }
@@ -74,6 +77,9 @@ const authSlice = createSlice({
       builder.addCase(getMe.fulfilled, (state,action) => {
         state.status = "success";
         state.me = action.payload.data.data
+        if(action.payload.data.data.type === Role.ADMIN){
+          state.isAdmin = true;
+        }
       })
 
       builder.addCase(getMe.rejected, (state) => {

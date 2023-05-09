@@ -13,17 +13,17 @@ import { useState } from "react";
 import { useAppDispatch } from "src/hooks/useAppDispatch";
 
 const Header: React.FC = () => {
-  const { isAuth, me } = useAppSelector((state) => state.auth);
-  const [open, setOpen] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
+  const { isAuth, me, isAdmin } = useAppSelector((state) => state.auth);
+  const [open, setOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   const handleLogOut = async () => {
-    await dispatch(logout())
-  }
+    await dispatch(logout());
+  };
   return (
     <header className="header">
       <div className="header__bar">
@@ -44,15 +44,20 @@ const Header: React.FC = () => {
                 <span>
                   <img src={User} alt="" /> {`${me?.fullName}`}
                 </span>
-                <div className="dropdown-content" style={{
-                    display : !open ? 'none' : 'block'
-                }}>
+                <div
+                  className="dropdown-content"
+                  style={{
+                    display: !open ? "none" : "block",
+                  }}
+                >
                   <Link to={"/users"}>
                     <span>Thông tin người dùng</span>
                   </Link>
-                  <Link to={"/admin"}>
-                    <span>Trang quản trị</span>
-                  </Link>
+                  {isAdmin && (
+                    <Link to={"/admin/dashboard/statistics"}>
+                      <span>Trang quản trị</span>
+                    </Link>
+                  )}
                   <Link to={"#"} onClick={handleLogOut}>
                     <span>Đăng xuất</span>
                   </Link>

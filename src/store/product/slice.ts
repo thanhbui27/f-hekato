@@ -256,7 +256,6 @@ const productReducer = createSlice({
     builder.addCase(getProductFeature.fulfilled, (state, action) => {
       state.status = "success";
       state.productFeature = action.payload.data.data;
-      console.log(action.payload.data.data);
     });
     builder.addCase(getProductFeature.rejected, (state, action) => {
       state.status = "rejected";
