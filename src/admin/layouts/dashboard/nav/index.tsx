@@ -14,6 +14,7 @@ import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 //
 import navConfig from './config';
+import { useAppSelector } from 'src/hooks/useAppSelector';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +37,7 @@ interface Props {
 
 const Nav : React.FC<Props> = ({ openNav, onCloseNav }) => {
   const { pathname } = useLocation();
-
+  const {me} = useAppSelector(state => state.auth)
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
@@ -64,11 +65,11 @@ const Nav : React.FC<Props> = ({ openNav, onCloseNav }) => {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {me?.fullName}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+                {me?.type}
               </Typography>
             </Box>
           </StyledAccount>

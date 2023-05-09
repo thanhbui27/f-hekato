@@ -8,7 +8,7 @@ const icon = (name : string) => <SvgColor src={`/assets/icons/navbar/${name}.svg
 const navConfig = [
   {
     title: 'dashboard',
-    path: '/admin/dashboard/app',
+    path: '/admin/dashboard/statistics',
     icon: icon('ic_analytics'),
   },
   {
@@ -25,17 +25,7 @@ const navConfig = [
     title: 'blog',
     path: '/admin/dashboard/blog',
     icon: icon('ic_blog'),
-  },
-  {
-    title: 'login',
-    path: '/login',
-    icon: icon('ic_lock'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic_disabled'),
-  },
+  }
 ];
 
 export default navConfig;

@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 // @mui
 import { styled } from "@mui/material/styles";
 import Header from "src/admin/layouts/dashboard/header";
 import Nav from "src/admin/layouts/dashboard/nav";
 import ThemeProvider from "src/admin/theme";
+import { useAppSelector } from "src/hooks/useAppSelector";
+import { alert } from "src/components/Common/Alert";
 //
 
 // ----------------------------------------------------------------------
@@ -34,6 +36,17 @@ const Main = styled("div")(({ theme }) => ({
 // ----------------------------------------------------------------------
 const RootAdminPage = () => {
   const [open, setOpen] = useState(false);
+  const {isAdmin} = useAppSelector(state => state.auth)
+  const location = useLocation();
+  const nav = useNavigate()
+
+  useEffect(() => {
+      if(location.pathname.split("/").find(x => x === "admin") && !isAdmin){
+          nav("/")
+          alert("error","bạn không có đủ quyền truy cập trang này");
+      }
+  },[location])
+
   return (
     <ThemeProvider>
       <StyledRoot>

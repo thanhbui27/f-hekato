@@ -18,7 +18,13 @@ export interface IUser  {
     lockoutEnabled: boolean,
     accessFailedCount: number,
     address : string,
-    cmnd : string
+    cmnd : string,
+    type : Role
+}
+
+export enum Role {
+    ADMIN = "admin",
+    USER = "user"
 }
 
 export interface Session {

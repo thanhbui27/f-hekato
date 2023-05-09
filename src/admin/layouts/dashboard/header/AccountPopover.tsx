@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 // mocks_
 import account from "../../../_mock/account";
+import { useAppSelector } from "src/hooks/useAppSelector";
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +36,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
-
+  const {me} = useAppSelector(state => state.auth)
   const handleOpen = (event: any) => {
     setOpen(event.currentTarget);
   };
@@ -85,10 +86,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {me?.fullName}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account.email}
+            {me?.email}
           </Typography>
         </Box>
 
