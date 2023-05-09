@@ -1,12 +1,14 @@
-import PropTypes from 'prop-types';
 // @mui
 import { Box, Card, Link, Typography, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // utils
 import { fCurrency } from '../../../../utils/formatNumber';
 // components
-import Label from '../../../../components/label';
 import { ColorPreview } from '../../../../components/color-utils';
+import { product } from 'src/services/api/product/types';
+import products from 'src/admin/_mock/products';
+import { url } from 'src/services/request';
+import { TKeyActionModal } from 'src/admin/pages/ProductsPage';
 
 // ----------------------------------------------------------------------
 
@@ -21,16 +23,17 @@ const StyledProductImg = styled('img')({
 // ----------------------------------------------------------------------
 
 interface Props {
-  product: any
+  product: product,
+  handleOpenModal : (value : TKeyActionModal, product : product) => void
 };
 
-const ShopProductCard : React.FC<Props> = ({ product }) => {
-  const { name, cover, price, colors, status, priceSale } = product;
+const ShopProductCard : React.FC<Props> = ({ product, handleOpenModal }) => {
+
 
   return (
-    <Card sx={{ cursor : "pointer"}}>
-      <Box sx={{ pt: '100%', position: 'relative'}}>
-        {status && (
+    <Card sx={{ cursor : "pointer"}} onClick={() => handleOpenModal(TKeyActionModal.EDIT_PRODUCT,product)}>
+       <Box sx={{ pt: '100%', position: 'relative'}}>
+         {/* {product.priceNew && ( 
           <Label
             variant="filled"
             color={(status === 'sale' && 'error') || 'info'}
@@ -44,19 +47,19 @@ const ShopProductCard : React.FC<Props> = ({ product }) => {
           >
             {status}
           </Label>
-        )}
-        <StyledProductImg alt={name} src={cover} />
-      </Box>
+        )} */}
+        <StyledProductImg alt={product.productName} src={`${url}Resources${product.list_image[0].url_image}`} />
+      </Box> 
 
       <Stack spacing={2} sx={{ p: 3 }}>
         <Link color="inherit" underline="hover">
           <Typography variant="subtitle2" noWrap>
-            {name}
+            {product.productName}
           </Typography>
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={colors} />
+          <ColorPreview colors={products[0].colors} />
           <Typography variant="subtitle1">
             <Typography
               component="span"
@@ -66,10 +69,9 @@ const ShopProductCard : React.FC<Props> = ({ product }) => {
                 textDecoration: 'line-through',
               }}
             >
-              {priceSale && fCurrency(priceSale)}
-            </Typography>
-            &nbsp;
-            {fCurrency(price)}
+              {product.priceOld && fCurrency(product.priceOld )}
+            </Typography> 
+            &nbsp; {fCurrency(product.priceNew )}
           </Typography>
         </Stack>
       </Stack>

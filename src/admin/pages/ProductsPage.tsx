@@ -6,26 +6,26 @@ import { Button, Container, Stack, Typography } from "@mui/material";
 import {
   ProductSort,
   ProductList,
-  ProductCartWidget,
   ProductFilterSidebar,
 } from "../sections/@dashboard/products";
 // mock
-import PRODUCTS from "../_mock/products";
 import Iconify from "../components/iconify/Iconify";
 import { ProductModal } from "../sections/@dashboard/products/components/ProductModal";
+import { product } from "src/services/api/product/types";
+import ProductModalAction from "../sections/@dashboard/products/components/ProductModalAction";
 
 // ----------------------------------------------------------------------
 
+export enum TKeyActionModal {
+  ADD_PRODUCT = "add_product",
+  EDIT_PRODUCT = "edit_product",
+  FILER_PRODUCT = "filer_product"
+}
+
 export default function ProductsPage() {
   const [openFilter, setOpenFilter] = useState(false);
-  const [open, setOpen] = useState<boolean>(false)
-
-  const handleOpenModal = () => {
-    setOpen(true)
-  }
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const [openAction, setOpenAction] = useState<TKeyActionModal>();
+  const [product, setProduct] = useState<product>()
   const handleOpenFilter = () => {
     setOpenFilter(true);
   };
@@ -34,12 +34,17 @@ export default function ProductsPage() {
     setOpenFilter(false);
   };
 
+  const handleModelAction = (value: string, product? : product) => {
+    setOpenAction(value as TKeyActionModal);
+    setProduct(product)
+  };
+
   return (
     <>
       <Helmet>
         <title> Dashboard: Products | Minimal UI </title>
       </Helmet>
-      
+
       <Container>
         <Stack
           direction="row"
@@ -53,7 +58,7 @@ export default function ProductsPage() {
           <Button
             variant="contained"
             startIcon={<Iconify icon="eva:plus-fill" />}
-            onClick={handleOpenModal}
+            onClick={() => handleModelAction(TKeyActionModal.ADD_PRODUCT)}
           >
             New Products
           </Button>
@@ -76,8 +81,13 @@ export default function ProductsPage() {
           </Stack>
         </Stack>
 
-        <ProductList products={PRODUCTS} />
-        <ProductModal open={open} handleClose={handleClose} />
+        <ProductList openModal={openAction!} handleOpenModal={handleModelAction} />
+        {openAction === TKeyActionModal.ADD_PRODUCT && (
+          <ProductModal open={true} handleClose={() => handleModelAction("")} />
+        )}
+         {openAction === TKeyActionModal.EDIT_PRODUCT && (
+          <ProductModalAction product={product!} open={true} handleClose={() => handleModelAction("")} />
+        )}
       </Container>
     </>
   );
