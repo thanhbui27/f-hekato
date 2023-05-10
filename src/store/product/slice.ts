@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productApi from "src/services/api/product";
-import { List_imageV2, paramProduct, product } from "src/services/api/product/types";
+import {
+  List_imageV2,
+  paramProduct,
+  product,
+} from "src/services/api/product/types";
 import { IResponePagination } from "src/types/response";
 
 interface TProduct {
@@ -13,7 +17,7 @@ interface TProduct {
   productTrendSmall: product[];
   productGetAll: IResponePagination;
   productById: product;
-  list_image : List_imageV2[]
+  list_image: List_imageV2[];
 }
 
 export const productCreate = createAsyncThunk(
@@ -30,8 +34,7 @@ export const productCreate = createAsyncThunk(
 
 export const uploadImageProduct = createAsyncThunk(
   "product/UPLOAD_IMAGE_PRODUCT",
-  async (data : FormData) => {
-
+  async (data: FormData) => {
     try {
       const res = await productApi.UploadImageProduct(data);
       return res;
@@ -43,7 +46,7 @@ export const uploadImageProduct = createAsyncThunk(
 
 export const getAllProductImage = createAsyncThunk(
   "product/GET_ALL_PRODUCT_IMAGE",
-  async (id : number) => {
+  async (id: number) => {
     try {
       const res = await productApi.getImageProductById(id);
       return res;
@@ -161,6 +164,18 @@ export const getProductById = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "product/DELETE_PRODUCT",
+  async (id: number) => {
+    try {
+      const res = await productApi.deleteProduct(id);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
 const initialState: TProduct = {
   status: "request",
   productArrive: [],
@@ -177,7 +192,7 @@ const initialState: TProduct = {
     totalRecords: 0,
     pageSize: 0,
   },
-  list_image : [] 
+  list_image: [],
 };
 
 const productReducer = createSlice({
@@ -205,6 +220,16 @@ const productReducer = createSlice({
       state.status = "rejected";
     });
 
+    builder.addCase(deleteProduct.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      state.status = "success";
+    });
+    builder.addCase(deleteProduct.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
     builder.addCase(uploadImageProduct.pending, (state) => {
       state.status = "pending";
     });
@@ -213,7 +238,6 @@ const productReducer = createSlice({
     });
     builder.addCase(uploadImageProduct.rejected, (state, action) => {
       state.status = "rejected";
-
     });
 
     builder.addCase(getAllProductImage.pending, (state) => {
@@ -221,7 +245,7 @@ const productReducer = createSlice({
     });
     builder.addCase(getAllProductImage.fulfilled, (state, action) => {
       state.status = "success";
-      state.list_image = action.payload.data.data
+      state.list_image = action.payload.data.data;
     });
     builder.addCase(getAllProductImage.rejected, (state, action) => {
       state.status = "rejected";
