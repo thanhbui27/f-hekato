@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 // icons
 import { Icon, IconifyIcon } from '@iconify/react';
 // @mui
-import { Box, SxProps, Theme } from '@mui/material';
+import { Box, BoxProps, SxProps, Theme } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-interface Props  {
+interface Props extends BoxProps {
   sx?: SxProps<Theme> | undefined
   width? : number | string,
   icon: string | IconifyIcon

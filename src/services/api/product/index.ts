@@ -10,11 +10,18 @@ const productApi = {
       method: "POST",
       data: params,
     }),
+  deleteProduct: async (id: number) => await request({
+    url: "/api/Product/Delete",
+    method: "DELETE",
+    data : {
+      productId : id
+    }
+  }),
   UploadImageProduct: async (params: FormData) =>
     await request<Response<list_image[]>>({
       url: `/api/Product/UploadImage`,
       method: "POST",
-      data: params
+      data: params,
     }),
   getImageProductById: async (id: number) =>
     await request<Response<List_imageV2[]>>({
