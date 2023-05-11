@@ -13,8 +13,8 @@ export interface IResponseImage {
   path: string;
 }
 
-export interface IResponePagination {
-    items: product[],
+export interface IResponePagination<T> {
+    items: T,
     pageIndex: number,
     pageSize: number,
     totalRecords: number,
