@@ -35,7 +35,7 @@ const productApi = {
       data: params,
     }),
   apiProductGellAll: async (params: paramProduct) =>
-    await request<IResponePagination>({
+    await request<IResponePagination<product[]>>({
       url: "/api/Product/GetAll",
       method: "GET",
       params,

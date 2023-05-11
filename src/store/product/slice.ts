@@ -15,7 +15,7 @@ interface TProduct {
   productOffer: product[];
   productTrending: product[];
   productTrendSmall: product[];
-  productGetAll: IResponePagination;
+  productGetAll: IResponePagination<product[]>
   productById: product;
   list_image: List_imageV2[];
 }

@@ -2,11 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authApi from "../../services/api/auth";
 import { LoginParams, RegisterParams } from "../../services/api/auth/types";
 import { IUser, Role } from "src/types/users";
+import { paramProduct } from "src/services/api/product/types";
+import { IResponePagination } from "src/types/response";
 
 export type TAuth = {
   me?: IUser;
   status : string
   accessToken?: string;
+  allUser : IResponePagination<IUser[]>
   isAuth: boolean;
   isAdmin : boolean
 };
@@ -38,9 +41,55 @@ export const userRegister = createAsyncThunk("auth/REGISTER", async (data : Regi
   }
 })
 
+export const getAllUser = createAsyncThunk("auth/GET_ALL_USER", async (data : paramProduct) => {
+  try {
+    const res = await authApi.getAllUser(data)
+    return res
+  }catch(error){
+    return Promise.reject(error)
+  }
+})
+
+export const lockUser = createAsyncThunk("auth/LOCK_USER", async (params :{id : string, dateTime : string}) => {
+  try {
+    const res = await authApi.lockUser(params.id,params.dateTime);
+    return res
+  }catch(error){
+    return Promise.reject(error)
+  }
+})
+
+export const unlockUser = createAsyncThunk("auth/UN_LOCK_USER", async (id : string) => {
+  try {
+    const res = await authApi.unlockUser(id);
+    return res
+  }catch(error){
+    return Promise.reject(error)
+  }
+})
+
+export const decentralization = createAsyncThunk("auth/DECENTRALIZATION", async (params :{id : string, type : string}) => {
+  try {
+    const res = await authApi.decentralization(params.id,params.type);
+    return res
+  }catch(error){
+    return Promise.reject(error)
+  }
+})
+
+export const deleteUser = createAsyncThunk("auth/DELETE_USER", async (id : string) => {
+  try {
+    const res = await authApi.deleteUser(id);
+    return res
+  }catch(error){
+    return Promise.reject(error)
+  }
+})
+
 const initialState: TAuth = {
   status: "request",
   accessToken: "",
+  allUser : {} as IResponePagination<IUser[]>,
   isAuth: false,
   isAdmin : false
 };
@@ -70,6 +119,17 @@ const authSlice = createSlice({
         state.status = "rejected";
       });
 
+      builder.addCase(getAllUser.pending, (state) => {
+        state.status = "pending";
+      });
+      builder.addCase(getAllUser.fulfilled, (state, action) => {
+        state.status = "success";
+        state.allUser = action.payload.data            
+      });
+      builder.addCase(getAllUser.rejected, (state, action) => {
+        state.status = "rejected";
+      });
+
       builder.addCase(getMe.pending,(state) => {
         state.status = "pending"
       })
@@ -84,6 +144,46 @@ const authSlice = createSlice({
 
       builder.addCase(getMe.rejected, (state) => {
         state.status = "rejected";
+      })
+
+      builder.addCase(lockUser.pending, (state)=> {
+        state.status = "pending"
+      })
+      builder.addCase(lockUser.fulfilled, (state,action) => {
+        state.status = "success"
+      })
+      builder.addCase(lockUser.rejected, (state) => {
+        state.status = "rejected"
+      })
+
+      builder.addCase(unlockUser.pending, (state)=> {
+        state.status = "pending"
+      })
+      builder.addCase(unlockUser.fulfilled, (state,action) => {
+        state.status = "success"
+      })
+      builder.addCase(unlockUser.rejected, (state) => {
+        state.status = "rejected"
+      })
+
+      builder.addCase(deleteUser.pending, (state)=> {
+        state.status = "pending"
+      })
+      builder.addCase(deleteUser.fulfilled, (state,action) => {
+        state.status = "success"
+      })
+      builder.addCase(deleteUser.rejected, (state) => {
+        state.status = "rejected"
+      })
+
+      builder.addCase(decentralization.pending, (state)=> {
+        state.status = "pending"
+      })
+      builder.addCase(decentralization.fulfilled, (state,action) => {
+        state.status = "success"
+      })
+      builder.addCase(decentralization.rejected, (state) => {
+        state.status = "rejected"
       })
 
       builder.addCase(userRegister.pending, (state)=> {
