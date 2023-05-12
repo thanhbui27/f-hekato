@@ -11,7 +11,6 @@ import { alert } from "../../components/Common/Alert";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const isAuth = useSelector(selectIsAuth)
   const navigate = useNavigate();
   const [login, setLogin] = useState<LoginParams>({
     userName : '',
@@ -27,8 +26,6 @@ const Login: React.FC = () => {
       alert("error","Đăng nhập thất bại");
     }
   }
-
-  console.log(isAuth)
 
   return (
     <div className="logins">

@@ -13,6 +13,7 @@ import DashboardAppPage from "src/admin/pages/DashboardAppPage";
 import UserPage from "src/admin/pages/UserPage";
 import ProductsPage from "src/admin/pages/ProductsPage";
 import BlogPage from "src/admin/pages/BlogPage";
+import OrderCompleted from "src/pages/orderCompleted";
 
 export const routes = (): RouteObject[] => [
   {
@@ -62,6 +63,10 @@ export const routes = (): RouteObject[] => [
       {
         path: "/payment",
         element: <Payment />,
+      },
+      {
+        path: "/orderCompleted",
+        element: <OrderCompleted />,
       },
       {
         path: "*",
