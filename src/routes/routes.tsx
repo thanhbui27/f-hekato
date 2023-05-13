@@ -14,6 +14,7 @@ import UserPage from "src/admin/pages/UserPage";
 import ProductsPage from "src/admin/pages/ProductsPage";
 import BlogPage from "src/admin/pages/BlogPage";
 import OrderCompleted from "src/pages/orderCompleted";
+import OrderPage from "src/admin/pages/OrderPage";
 
 export const routes = (): RouteObject[] => [
   {
@@ -82,6 +83,7 @@ export const routes = (): RouteObject[] => [
       { path: "statistics", element: <DashboardAppPage /> },
       { path: "user", element: <UserPage /> },
       { path: "products", element: <ProductsPage /> },
+      { path: "order", element: <OrderPage /> },    
       { path: "blog", element: <BlogPage /> },
     ],
   },

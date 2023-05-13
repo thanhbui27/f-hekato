@@ -89,7 +89,13 @@ export const deleteUser = createAsyncThunk("auth/DELETE_USER", async (id : strin
 const initialState: TAuth = {
   status: "request",
   accessToken: "",
-  allUser : {} as IResponePagination<IUser[]>,
+  allUser : {
+    items: [],
+    pageIndex: 0,
+    pageSize: 0,
+    totalRecords: 0,
+    pageCount: 0
+  } ,
   isAuth: false,
   isAdmin : false
 };
