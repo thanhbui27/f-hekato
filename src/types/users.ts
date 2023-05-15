@@ -27,6 +27,14 @@ export enum Role {
     USER = "user"
 }
 
+export enum errorResponeUser {
+    ERROR_PLEASE_TRY_AGAIN = "error_please_try_a_gain",
+    ACCOUNT_IS_LOCK = "account_is_lock",
+    INFO_NOT_EXITS = "info_not_exits",
+    CREATE_ACCOUNT_FAILED = "create_account_failed"
+}
+
+
 export interface Session {
     sessionId: number,
      uid: string,

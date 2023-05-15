@@ -1,31 +1,37 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { LoginParams } from "../../services/api/auth/types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authLogin } from "../../store/auth/slice";
 import { AppDispatch } from "../../store/configureStore";
 import "./styles.scss";
-import { selectIsAuth } from "../../store/auth/selector";
 import { alert } from "../../components/Common/Alert";
-
+import {url} from "src/services/request"
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [login, setLogin] = useState<LoginParams>({
-    userName : '',
-    password : ''
-  })
-  const handleSubmit  = async (e : React.SyntheticEvent) => {
-    e.preventDefault()
-    const res = await dispatch(authLogin(login))
-    if(authLogin.fulfilled.match(res)){
-      navigate("/")
-      alert("success","Đăng nhập thành công");
-    }else{
-      alert("error","Đăng nhập thất bại");
+    userName: "",
+    password: "",
+  });
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const res = await dispatch(authLogin(login));
+    if (authLogin.fulfilled.match(res)) {
+      navigate("/");
+      alert("success", "Đăng nhập thành công");
+    } else {
+      alert("error", "Đăng nhập thất bại");
     }
-  }
+  };
+  const handleLoginGoogle = async () => {
+    window.location.href = url+"google-signin"
+  };
+
+  const handleLoginFacebook= async () => {
+    window.location.href = url+"facebook-signin"
+  };
 
   return (
     <div className="logins">
@@ -41,7 +47,15 @@ const Login: React.FC = () => {
             <div className="title">Đăng Nhập</div>
             <form action="post" onSubmit={handleSubmit}>
               <div className="field input-field">
-                <input type="text" placeholder="Username" name="userName" className="input" onChange={e => setLogin({...login, userName : e.target.value})} />
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="userName"
+                  className="input"
+                  onChange={(e) =>
+                    setLogin({ ...login, userName: e.target.value })
+                  }
+                />
               </div>
 
               <div className="field input-field">
@@ -50,7 +64,9 @@ const Login: React.FC = () => {
                   placeholder="Password"
                   className="password"
                   name="password"
-                  onChange={e => setLogin({...login, password : e.target.value})}
+                  onChange={(e) =>
+                    setLogin({ ...login, password: e.target.value })
+                  }
                 />
                 <i className="bx bx-hide eye-icon"></i>
               </div>
@@ -79,15 +95,15 @@ const Login: React.FC = () => {
           <div className="line"></div>
 
           <div className="media-options">
-            <a href="#" className="field facebook">
+            <a href="#" className="field facebook" onClick={handleLoginFacebook}>
               <i className="bx bxl-facebook facebook-icon"></i>
               <span>Login with Facebook</span>
             </a>
           </div>
 
-          <div className="media-options">
+          <div className="media-options" onClick={handleLoginGoogle}>
             <a href="#" className="field google">
-              <img src="#" alt="" className="google-img" />
+              <img src="https://pixlok.com/wp-content/uploads/2021/04/Google-Icon-PNG-768x768.jpg" alt="https://pixlok.com/wp-content/uploads/2021/04/Google-Icon-PNG-768x768.jpg" className="google-img" />
               <span>Login with Google</span>
             </a>
           </div>

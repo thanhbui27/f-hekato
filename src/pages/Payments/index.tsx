@@ -32,6 +32,10 @@ const Payment = () => {
   const nav = useNavigate();
   useEffect(() => {
     if (isAuth) {
+      if(me?.email.includes("default_account") || me?.userName.includes("detault_account")){
+        nav("/user");
+        alert("error","Email và usename của bạn chưa được cập nhật")
+      }
       dispath(getCartByIdU({ uid: me?.session.sessionId! }));
       return;
     }
@@ -75,7 +79,6 @@ const Payment = () => {
     }
     return;
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {selectCart.length > 0 ? (
@@ -96,7 +99,7 @@ const Payment = () => {
                     <Input
                       label="Email"
                       type="email"
-                      defaultValue={me?.email}
+                      defaultValue={me?.email.includes("default_account") ? "" : me?.email}
                       {...register("email")}
                     />
                   </div>

@@ -11,6 +11,11 @@ const authApi = {
       method: "POST",
       data,
     }),
+  loginGoogle: async () =>
+    request<Response<string>>({
+      url: "/google-signin",
+      method: "GET",
+    }),
   getMe: async () =>
     request<Response<IUser>>({
       url: "/api/Auth/me",
@@ -32,7 +37,7 @@ const authApi = {
     request<Response<boolean>>({
       url: "/api/Auth/delete",
       method: "DELETE",
-      data:  id ,
+      data: id,
     }),
   decentralization: async (id: string, type: string) =>
     request<Response<boolean>>({
