@@ -15,6 +15,9 @@ import ProductsPage from "src/admin/pages/ProductsPage";
 import BlogPage from "src/admin/pages/BlogPage";
 import OrderCompleted from "src/pages/orderCompleted";
 import OrderPage from "src/admin/pages/OrderPage";
+import UUserPage from "src/pages/User";
+import MyAccount from "src/pages/User/components/MyAccount";
+import CartUser from "src/pages/User/components/Cart";
 
 export const routes = (): RouteObject[] => [
   {
@@ -32,6 +35,20 @@ export const routes = (): RouteObject[] => [
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path : "/user",
+        element: <UUserPage />,
+        children : [
+          { element: <Navigate to="/user/dashboard" />, index: true },
+          { path: "dashboard", element:<h1>page</h1> },
+          { path: "my-account", element: <MyAccount /> },
+          { path: "cart", element: <CartUser /> },
+          { path: "my-order", element: <h1>page</h1> },
+          { path: "my-blog", element:<h1>page</h1> },
+          { path: "help-desk", element:<h1>page</h1> },
+          { path: "settings", element:<h1>page</h1> },
+        ]
       },
       {
         path: "/pages",
@@ -83,7 +100,7 @@ export const routes = (): RouteObject[] => [
       { path: "statistics", element: <DashboardAppPage /> },
       { path: "user", element: <UserPage /> },
       { path: "products", element: <ProductsPage /> },
-      { path: "order", element: <OrderPage /> },    
+      { path: "order", element: <OrderPage /> },
       { path: "blog", element: <BlogPage /> },
     ],
   },

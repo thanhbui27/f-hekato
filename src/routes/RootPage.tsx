@@ -33,7 +33,7 @@ const RootPage: React.FC = () => {
     if (location.pathname === "/setAuth") {
       setToken();
     }
-  }, [location]);
+  }, [location, isAuth, nav]);
   return (
     <div className="wrapper">
       <Header />

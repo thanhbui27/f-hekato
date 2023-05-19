@@ -4,6 +4,8 @@ export interface IUser  {
     id: string,
     userName: string,
     session : Session,
+    orders: string | null,
+    commentsProducts:  string | null,
     normalizedUserName: string,
     email: string,
     normalizedEmail: string,
@@ -19,7 +21,8 @@ export interface IUser  {
     accessFailedCount: number,
     address : string,
     cmnd : string,
-    type : Role
+    type : Role,
+    picture : string
 }
 
 export enum Role {

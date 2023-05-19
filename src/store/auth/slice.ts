@@ -4,6 +4,7 @@ import { LoginParams, RegisterParams } from "../../services/api/auth/types";
 import { IUser, Role } from "src/types/users";
 import { paramProduct } from "src/services/api/product/types";
 import { IResponePagination } from "src/types/response";
+import { UserForm } from "src/pages/User/components/MyAccount";
 
 export type TAuth = {
   me?: IUser;
@@ -64,7 +65,7 @@ export const getAllUser = createAsyncThunk(
   async (data: paramProduct) => {
     try {
       const res = await authApi.getAllUser(data);
-      return res;
+      return res.data;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -122,18 +123,42 @@ export const deleteUser = createAsyncThunk(
 
 export const setToken = createAction("auth/setTokened");
 
+export const uploadImage = createAsyncThunk(
+  "auth/UPLOAD_IMAGE",
+  async (data : {id : string, image : FormData}) => {
+    try {
+      const res = await authApi.uploadImage(data.id, data.image);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const updateInfoUser = createAsyncThunk(
+  "auth/UPDATE_INFO_USER",
+  async (user : UserForm) => {
+    try {
+      const res = await authApi.updateInfoUser(user);
+      return res;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
 const initialState: TAuth = {
   status: "request",
   accessToken: "",
+  isAuth: false,
+  isAdmin: false, 
   allUser: {
     items: [],
-    pageIndex: 0,
-    pageSize: 0,
-    totalRecords: 0,
     pageCount: 0,
+    pageIndex: 0,
+    totalRecords: 0,
+    pageSize: 0,
   },
-  isAuth: false,
-  isAdmin: false,
 };
 
 const authSlice = createSlice({
@@ -176,12 +201,33 @@ const authSlice = createSlice({
       state.status = "rejected";
     });
 
+    builder.addCase(updateInfoUser.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(updateInfoUser.fulfilled, (state, action) => {
+      state.status = "success";
+    });
+    builder.addCase(updateInfoUser.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
+    builder.addCase(uploadImage.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(uploadImage.fulfilled, (state, action) => {
+      state.status = "success";
+    });
+    builder.addCase(uploadImage.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
     builder.addCase(getAllUser.pending, (state) => {
       state.status = "pending";
     });
     builder.addCase(getAllUser.fulfilled, (state, action) => {
       state.status = "success";
-      state.allUser = action.payload.data;
+      state.allUser = action.payload;
+      console.log(state.allUser)
     });
     builder.addCase(getAllUser.rejected, (state, action) => {
       state.status = "rejected";

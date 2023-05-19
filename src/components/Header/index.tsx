@@ -50,7 +50,7 @@ const Header: React.FC = () => {
                     display: !open ? "none" : "block",
                   }}
                 >
-                  <Link to={"/users"}>
+                  <Link to={"/user/dashboard"}>
                     <span>Thông tin người dùng</span>
                   </Link>
                   {isAdmin && (

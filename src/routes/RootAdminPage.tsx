@@ -14,13 +14,13 @@ import { alert } from "src/components/Common/Alert";
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
 
-const StyledRoot = styled("div")({
+export const StyledRoot = styled("div")({
   display: "flex",
   minHeight: "100%",
   overflow: "hidden",
 });
 
-const Main = styled("div")(({ theme }) => ({
+export const Main = styled("div")(({ theme }) => ({
   flexGrow: 1,
   overflow: "auto",
   minHeight: "100%",
