@@ -14,6 +14,7 @@ import {
 // mocks_
 import account from "../../../_mock/account";
 import { useAppSelector } from "src/hooks/useAppSelector";
+import { getImage } from "src/constants/URLImage";
 
 // ----------------------------------------------------------------------
 
@@ -62,7 +63,7 @@ export default function AccountPopover() {
           },
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={me?.picture ? getImage(me.picture) : account.photoURL} alt="photoURL" />
       </IconButton>
 
       <Popover

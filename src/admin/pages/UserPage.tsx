@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 // @mui
 import {
   Card,
@@ -79,16 +79,15 @@ const menu_aciton_table = [
 
 export default function UserPage() {
   const dispath = useAppDispatch();
-  const {
-    allUser: { items, pageIndex, totalRecords, pageCount, pageSize },
-  } = useAppSelector((state) => state.auth);
 
   const [query, setQuery] = useState<paramProduct>({
     q: "",
     PageIndex: 1,
     PageSize: 10,
   });
-  
+
+  const { allUser } = useAppSelector((state) => state.auth);
+
   const [open, setOpen] = useState({
     id: "",
     isLockUser: false,
@@ -97,9 +96,11 @@ export default function UserPage() {
     isAdmin: false,
   });
   const [filterName, setFilterName] = useState("");
+
   useEffect(() => {
     dispath(getAllUser(query));
   }, [query]);
+
 
   const handleOpenMenu = (
     event: any,
@@ -202,16 +203,18 @@ export default function UserPage() {
     setFilterName(event.target.value);
   };
 
-  const rows  = items.map((item, index) => {
-    return {
-      id: item.id,
-      fullName: item.fullName,
-      phoneNumber: item.phoneNumber,
-      email: item.email,
-      role: item.type,
-      status: item.lockoutEnd,
-    };
-  })
+  const rows = useMemo(() => {
+    return allUser?.items.map((item, index) => {
+      return {
+        id: item.id,
+        fullName: item.fullName,
+        phoneNumber: item.phoneNumber,
+        email: item.email,
+        role: item.type,
+        status: item.lockoutEnd,
+      };
+    });
+  }, [allUser?.items]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "#", width: 230 },
@@ -306,7 +309,7 @@ export default function UserPage() {
             filterName={filterName}
             onFilterName={handleFilterByName}
           />
-          {items.length > 0  ? (
+          {allUser?.items.length > 0 ? (
             <DataGrid rows={rows} columns={columns} />
           ) : (
             <Loading />
@@ -321,11 +324,11 @@ export default function UserPage() {
           >
             <Pagination
               className="pagi"
-              currentPage={pageIndex}
+              currentPage={allUser?.pageIndex | 0}
               onPageChange={handleOnChangePage}
-              pageSize={pageSize}
-              siblingCount={pageCount}
-              totalCount={totalRecords}
+              pageSize={allUser?.pageSize | 0}
+              siblingCount={allUser?.pageCount | 0}
+              totalCount={allUser?.totalRecords | 0}
             />
           </Box>
         </Card>

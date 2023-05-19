@@ -1,0 +1,1 @@
+export const getImage = (image : string) =>  `https://localhost:7263/Resources${image}`

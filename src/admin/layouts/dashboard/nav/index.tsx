@@ -14,6 +14,7 @@ import NavSection from '../../../components/nav-section';
 //
 import navConfig from './config';
 import { useAppSelector } from 'src/hooks/useAppSelector';
+import { getImage } from 'src/constants/URLImage';
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +61,7 @@ const Nav : React.FC<Props> = ({ openNav, onCloseNav }) => {
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
           <StyledAccount>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src={me?.picture ? getImage(me.picture) : account.photoURL} alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>

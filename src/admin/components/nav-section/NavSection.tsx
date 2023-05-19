@@ -1,12 +1,12 @@
 import { NavLink as RouterLink } from 'react-router-dom';
 // @mui
-import { Box, List, ListItemText } from '@mui/material';
+import { Box, BoxProps, List, ListItemText } from '@mui/material';
 //
 import { StyledNavItem, StyledNavItemIcon } from './styles';
 
 // ----------------------------------------------------------------------
 
-interface Props {
+interface Props extends BoxProps {
   data: any,
 };
 

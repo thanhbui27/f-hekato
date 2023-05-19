@@ -3,6 +3,7 @@ import request from "../../request";
 import { LoginParams, RegisterParams } from "./types";
 import { paramProduct } from "../product/types";
 import { IResponePagination } from "src/types/response";
+import { UserForm } from "src/pages/User/components/MyAccount";
 
 const authApi = {
   login: async (data: LoginParams) =>
@@ -16,6 +17,16 @@ const authApi = {
       url: "/google-signin",
       method: "GET",
     }),
+  uploadImage : async (id : string, image : FormData) => await request<Response<string>>({
+    url: `/api/Auth/uploadAvatar?id=${id}`,
+    method: "POST",
+    data : image
+  }),
+  updateInfoUser : async (user : UserForm) => await request<Response<string>>({
+    url: `/api/Auth/updateUser`,
+    method: "PUT",
+    data : user
+  }),
   getMe: async () =>
     request<Response<IUser>>({
       url: "/api/Auth/me",
