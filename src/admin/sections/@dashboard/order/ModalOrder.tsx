@@ -77,6 +77,11 @@ const ModalOrder: React.FC<Props> = ({ orderId, open, handleClose }) => {
       flex: 1,
     },
     {
+      field: "transactionCode",
+      headerName: "Mã giao dịch",
+      flex: 1,
+    },
+    {
       field: "payment",
       headerName: "Hình thức thanh toán",
       flex: 1,
@@ -98,6 +103,7 @@ const ModalOrder: React.FC<Props> = ({ orderId, open, handleClose }) => {
           productName: item.products.productName,
           quantity: item.quantity,
           price: item.quantity * item.products.priceNew,
+          transactionCode : orderDetails.payments.transactionCode,
           payment: orderDetails.payments.provider,
         };
       });

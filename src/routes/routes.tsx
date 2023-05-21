@@ -18,6 +18,7 @@ import OrderPage from "src/admin/pages/OrderPage";
 import UUserPage from "src/pages/User";
 import MyAccount from "src/pages/User/components/MyAccount";
 import CartUser from "src/pages/User/components/Cart";
+import OrderUser from "src/pages/User/components/Order";
 
 export const routes = (): RouteObject[] => [
   {
@@ -44,7 +45,7 @@ export const routes = (): RouteObject[] => [
           { path: "dashboard", element:<h1>page</h1> },
           { path: "my-account", element: <MyAccount /> },
           { path: "cart", element: <CartUser /> },
-          { path: "my-order", element: <h1>page</h1> },
+          { path: "my-order", element: <OrderUser /> },
           { path: "my-blog", element:<h1>page</h1> },
           { path: "help-desk", element:<h1>page</h1> },
           { path: "settings", element:<h1>page</h1> },

@@ -5,24 +5,24 @@ import vnpay from "../../assets/images/vnpay.jpg";
 import TablePayment from "./components/table";
 import { useAppSelector } from "src/hooks/useAppSelector";
 import { useAppDispatch } from "src/hooks/useAppDispatch";
-import { deleteALLToCart, getCartByIdU } from "src/store/cart/slice";
+import { getCartByIdU } from "src/store/cart/slice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CartTotal from "./components/Cart-Total";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { alert } from "src/components/Common/Alert";
 import { ETypePay } from "./types";
-import { createOrder } from "src/store/orders/slice";
+import { PayVnpay, createOrder } from "src/store/orders/slice";
 import { IParamUserOrder } from "src/services/api/orders/types";
 import { styled } from "@mui/material";
 
 const StyleError = styled("div")(() => ({
-  width : "100%",
-  textAlign : "center",
-  marginTop : "100px",
-  fontSize : "20px",
-  color : "red"
-}))
+  width: "100%",
+  textAlign: "center",
+  marginTop: "100px",
+  fontSize: "20px",
+  color: "red",
+}));
 
 const Payment = () => {
   const [typePay, setTypePay] = useState<ETypePay>(ETypePay.NORMAL);
@@ -32,9 +32,12 @@ const Payment = () => {
   const nav = useNavigate();
   useEffect(() => {
     if (isAuth) {
-      if(me?.email.includes("default_account") || me?.userName.includes("detault_account")){
+      if (
+        me?.email.includes("default_account") ||
+        me?.userName.includes("detault_account")
+      ) {
         nav("/user");
-        alert("error","Email và usename của bạn chưa được cập nhật")
+        alert("error", "Email và usename của bạn chưa được cập nhật");
       }
       dispath(getCartByIdU({ uid: me?.session.sessionId! }));
       return;
@@ -62,22 +65,43 @@ const Payment = () => {
       };
     });
 
-    const res = await dispath(
-      createOrder({
-        users: { ...data, id: me?.id! },
-        typePay: typePay,
-        productIds: cart,
-        total: getTotal,
-      })
-    );
-    if (createOrder.fulfilled.match(res)) {
-      nav("/orderCompleted");
-      await dispath(deleteALLToCart(me?.session.sessionId!));
-      alert("success", res.payload?.data.message!);
-    } else {
-      alert("error", "có lỗi xảy ra vui lòng thử lại");
+    switch (typePay) {
+      case ETypePay.NORMAL:
+        const res = await dispath(
+          createOrder({
+            users: { ...data, id: me?.id! },
+            typePay: typePay,
+            productIds: cart,
+            total: getTotal,
+          })
+        );
+        if (createOrder.fulfilled.match(res)) {
+          nav("/orderCompleted?success=true");
+          alert("success", res.payload?.data.message!);
+        } else {
+          alert("error", "có lỗi xảy ra vui lòng thử lại");
+        }
+        return;
+      case ETypePay.MOMO:
+        console.log("MOMO");
+        return;
+      case ETypePay.VNPAY:
+        let obj = {
+          users: { ...data, id: me?.id! },
+          typePay: typePay,
+          productIds: cart,
+          total: getTotal,
+        };
+        const resVnPay = await dispath(PayVnpay(obj))
+        if(PayVnpay.fulfilled.match(resVnPay)){
+           window.location.href = resVnPay.payload?.data.data!
+        }else{
+          alert("error", "Có lỗi xảy ra vui lòng thử lại")
+        }
+        return;
+      default:
+        return;
     }
-    return;
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,7 +123,9 @@ const Payment = () => {
                     <Input
                       label="Email"
                       type="email"
-                      defaultValue={me?.email.includes("default_account") ? "" : me?.email}
+                      defaultValue={
+                        me?.email.includes("default_account") ? "" : me?.email
+                      }
                       {...register("email")}
                     />
                   </div>
@@ -181,9 +207,8 @@ const Payment = () => {
         </div>
       ) : (
         <StyleError>
-            <p>Giỏ hàng rỗng vui lòng thử lại</p>
+          <p>Giỏ hàng rỗng vui lòng thử lại</p>
         </StyleError>
-       
       )}
     </form>
   );

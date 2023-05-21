@@ -257,7 +257,6 @@ const productReducer = createSlice({
     builder.addCase(getProductAll.fulfilled, (state, action) => {
       state.status = "success";
       state.productGetAll = action.payload;
-      console.log(action.payload);
     });
     builder.addCase(getProductAll.rejected, (state, action) => {
       state.status = "rejected";

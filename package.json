@@ -22,7 +22,6 @@
     "apexcharts": "^3.40.0",
     "axios": "^0.27.2",
     "change-case": "^4.1.2",
-    "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.7",
     "html-react-parser": "^3.0.16",
