@@ -1,8 +1,12 @@
 import { styled } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CustomerButton from "src/components/Common/CustomerButton";
-import CompleteOrder from "src/assets/images/Group 267.png";
+import CompleteOrder from "src/assets/images/order-succes.png";
+import FailuereOrder from "src/assets/images/order-failed.png";
 import { useAppSelector } from "src/hooks/useAppSelector";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { deleteALLToCart } from "src/store/cart/slice";
 
 const StyleBox = styled("div")(({ theme }) => ({
   width: "100%",
@@ -21,7 +25,26 @@ const StyleBox = styled("div")(({ theme }) => ({
 }));
 
 const OrderCompleted = () => {
-  const { isAuth } = useAppSelector((state) => state.auth);
+  const [Order, setOrder] = useState<boolean>(true)
+  const { isAuth,me } = useAppSelector((state) => state.auth);
+  const location = useLocation();
+  const dispatch = useAppDispatch()
+
+  const handleDeleteAllCart = async () => {
+    await dispatch(deleteALLToCart(me?.session.sessionId!));
+  }
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const isOrder = query.get("success");
+    if (isOrder?.toLowerCase() === 'true') {
+      handleDeleteAllCart()
+      setOrder(true)
+    }
+    if (isOrder?.toLowerCase() === 'false') {
+      setOrder(false)
+    }
+  },[location])
 
   return (
     <div className="cart">
@@ -34,7 +57,7 @@ const OrderCompleted = () => {
       <div className="container">
         {isAuth ? (
           <StyleBox>
-            <img src={CompleteOrder} />
+            <img src={Order ? CompleteOrder : FailuereOrder} />
             <Link to={`/`}>
               <CustomerButton element={<span>Continue Shopping</span>} />
             </Link>

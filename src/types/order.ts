@@ -11,6 +11,7 @@ export interface Payment {
   paymentId: number;
   orderId: number;
   amount: number;
+  transactionCode : string,
   provider: string;
   status: string;
   createAt: string;

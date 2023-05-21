@@ -8,7 +8,8 @@ import { IResponePagination } from "src/types/response";
 interface IOrderInit {
   status: string;
   orders: IResponePagination<IOrder[]>;
-  orderDetails : IOrder
+  orderDetails : IOrder,
+  orderByUser : IOrder[]
 }
 
 export const createOrder = createAsyncThunk(
@@ -60,9 +61,30 @@ export const getDetailsOrder = createAsyncThunk("order/DETAILS_ORDER" , async (i
     Promise.reject(error);
   }
 })
+
+export const getOrderByUser = createAsyncThunk("order/ORDER_BY_USER", async (id : string) => {
+  try {
+    const res = await apiOrder.getOrderByUser(id);
+    return res.data;
+  } catch (error){
+    Promise.reject(error)
+  }
+})
+
+export const PayVnpay = createAsyncThunk("order/PAY_VNPAT", async (data: RequestParamOrder) => {
+  try {
+    const res = await apiOrder.VnPay(data);
+    return res;
+  } catch (error) {
+    Promise.reject(error);
+  }
+}
+);
+
 const initialState: IOrderInit = {
   status: "request",
   orderDetails : {} as IOrder,
+  orderByUser : [],
   orders: {
     items: [],
     pageCount: 0,
@@ -89,6 +111,18 @@ const ordersReducer = createSlice({
       state.status = "rejected";
     });
 
+    builder.addCase(PayVnpay.pending, (state) => {
+      state.status = "pending";
+    });
+
+    builder.addCase(PayVnpay.fulfilled, (state) => {
+      state.status = "success";
+    });
+
+    builder.addCase(PayVnpay.rejected, (state) => {
+      state.status = "rejected";
+    });
+
     builder.addCase(getDetailsOrder.pending, (state) => {
       state.status = "pending";
     });
@@ -99,6 +133,19 @@ const ordersReducer = createSlice({
     });
 
     builder.addCase(getDetailsOrder.rejected, (state) => {
+      state.status = "rejected";
+    });
+
+    builder.addCase(getOrderByUser.pending, (state) => {
+      state.status = "pending";
+    });
+
+    builder.addCase(getOrderByUser.fulfilled, (state,action) => {
+      state.status = "success";
+      state.orderByUser = action.payload?.data!
+    });
+
+    builder.addCase(getOrderByUser.rejected, (state) => {
       state.status = "rejected";
     });
 

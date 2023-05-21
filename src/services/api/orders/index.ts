@@ -12,10 +12,17 @@ const apiOrder = {
       method: "POST",
       data: data,
     }),
-  orderDetails : async(id : number) => await request<Response<IOrder>>({
-    url: `/api/Orders/GetDetailsOrder?id=${id}`,
-    method: "GET",
-  }),
+  VnPay: async (data: RequestParamOrder) =>
+    await request<Response<string>>({
+      url: "/api/Vnpay/payment",
+      method: "POST",
+      data: data,
+    }),
+  orderDetails: async (id: number) =>
+    await request<Response<IOrder>>({
+      url: `/api/Orders/GetDetailsOrder?id=${id}`,
+      method: "GET",
+    }),
   getAllOrder: async (data: paramProduct) =>
     await request<IResponePagination<IOrder[]>>({
       url: "/api/Orders/GetAllOrder",
@@ -31,6 +38,12 @@ const apiOrder = {
         status: status,
       },
     }),
+  getOrderByUser: async (id: string) =>
+    await request<Response<IOrder[]>>({
+      url: `/api/Orders/GetOrderById?uid=${id}`,
+      method: "GET",
+    }),
+
   deleteOrder: async (id: number) =>
     await request<Response<boolean>>({
       url: `/api/Orders/${id}`,

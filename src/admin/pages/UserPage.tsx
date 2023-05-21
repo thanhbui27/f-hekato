@@ -225,7 +225,7 @@ export default function UserPage() {
       renderCell: (params) => {
         return (
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={params.value} src={account.photoURL} />
+            <Avatar alt={params.value} src={ account.photoURL} />
             <Typography variant="subtitle2" noWrap>
               {params.value}
             </Typography>
