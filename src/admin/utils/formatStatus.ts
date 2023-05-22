@@ -19,6 +19,10 @@ export const statusDetails  = (value : string) : PropsStatusRespone  =>   {
             messager : "Nhận hàng thất bại",
             color : "error"
         },
+        [StatusOrder.CANCELED_PAYMENT] : {
+            messager : "Giao dịch bị huỷ",
+            color : "error"
+        },
         [StatusOrder.ORDER_CONFIRMED] : {
             messager : "Xác nhận đơn hàng",
             color : "success"

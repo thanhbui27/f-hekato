@@ -32,7 +32,8 @@ export enum StatusOrder {
   ORDER_CONFIRMED = "order_confirmed",
   FAILED = "failed",
   CANCELED = "canceled",
-  DETAIL = "detail"
+  DETAIL = "detail",
+  CANCELED_PAYMENT = "canceled_payment"
 }
 
 export enum StatusPayment {
