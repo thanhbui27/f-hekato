@@ -12,7 +12,7 @@ import CartTotal from "./components/Cart-Total";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { alert } from "src/components/Common/Alert";
 import { ETypePay } from "./types";
-import { PayVnpay, createOrder } from "src/store/orders/slice";
+import { PayMOMO, PayVnpay, createOrder } from "src/store/orders/slice";
 import { IParamUserOrder } from "src/services/api/orders/types";
 import { styled } from "@mui/material";
 
@@ -83,7 +83,18 @@ const Payment = () => {
         }
         return;
       case ETypePay.MOMO:
-        console.log("MOMO");
+        let objMoMo = {
+          users: { ...data, id: me?.id! },
+          typePay: typePay,
+          productIds: cart,
+          total: getTotal,
+        };
+        const resMoMo = await dispath(PayMOMO(objMoMo))
+        if(PayMOMO.fulfilled.match(resMoMo)){
+           window.location.href = resMoMo.payload?.data.data!
+        }else{
+          alert("error", "Có lỗi xảy ra vui lòng thử lại")
+        }
         return;
       case ETypePay.VNPAY:
         let obj = {

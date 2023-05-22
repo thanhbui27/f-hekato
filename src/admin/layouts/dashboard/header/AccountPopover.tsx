@@ -15,6 +15,8 @@ import {
 import account from "../../../_mock/account";
 import { useAppSelector } from "src/hooks/useAppSelector";
 import { getImage } from "src/constants/URLImage";
+import { logout } from "src/store/auth/slice";
+import { useAppDispatch } from "src/hooks/useAppDispatch";
 
 // ----------------------------------------------------------------------
 
@@ -38,12 +40,18 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const {me} = useAppSelector(state => state.auth)
+  const dispatch = useAppDispatch();
   const handleOpen = (event: any) => {
     setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
     setOpen(null);
+  };
+
+
+  const handleLogOut = async () => {
+    await dispatch(logout());
   };
 
   return (
@@ -106,7 +114,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={handleLogOut} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

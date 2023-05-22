@@ -71,9 +71,19 @@ export const getOrderByUser = createAsyncThunk("order/ORDER_BY_USER", async (id 
   }
 })
 
-export const PayVnpay = createAsyncThunk("order/PAY_VNPAT", async (data: RequestParamOrder) => {
+export const PayVnpay = createAsyncThunk("order/PAY_VNPAY", async (data: RequestParamOrder) => {
   try {
     const res = await apiOrder.VnPay(data);
+    return res;
+  } catch (error) {
+    Promise.reject(error);
+  }
+}
+);
+
+export const PayMOMO = createAsyncThunk("order/PAY_MOMO", async (data: RequestParamOrder) => {
+  try {
+    const res = await apiOrder.MoMoPay(data);
     return res;
   } catch (error) {
     Promise.reject(error);
@@ -120,6 +130,18 @@ const ordersReducer = createSlice({
     });
 
     builder.addCase(PayVnpay.rejected, (state) => {
+      state.status = "rejected";
+    });
+
+    builder.addCase(PayMOMO.pending, (state) => {
+      state.status = "pending";
+    });
+
+    builder.addCase(PayMOMO.fulfilled, (state) => {
+      state.status = "success";
+    });
+
+    builder.addCase(PayMOMO.rejected, (state) => {
       state.status = "rejected";
     });
 

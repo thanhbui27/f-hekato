@@ -18,6 +18,12 @@ const apiOrder = {
       method: "POST",
       data: data,
     }),
+    MoMoPay: async (data: RequestParamOrder) =>
+    await request<Response<string>>({
+      url: "/api/MoMoPay/payment",
+      method: "POST",
+      data: data,
+    }),
   orderDetails: async (id: number) =>
     await request<Response<IOrder>>({
       url: `/api/Orders/GetDetailsOrder?id=${id}`,

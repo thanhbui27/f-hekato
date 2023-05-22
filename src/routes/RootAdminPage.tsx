@@ -45,7 +45,7 @@ const RootAdminPage = () => {
           nav("/")
           alert("error","bạn không có đủ quyền truy cập trang này");
       }
-  },[location])
+  },[location, isAdmin])
 
   return (
     <ThemeProvider>

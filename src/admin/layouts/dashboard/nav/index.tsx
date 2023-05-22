@@ -8,13 +8,13 @@ import account from '../../../_mock/account';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // components
-import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 //
 import navConfig from './config';
 import { useAppSelector } from 'src/hooks/useAppSelector';
 import { getImage } from 'src/constants/URLImage';
+import { Logo } from 'src/components/Common/Logo';
 
 // ----------------------------------------------------------------------
 
