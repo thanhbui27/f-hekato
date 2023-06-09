@@ -17,7 +17,7 @@ const Product = () => {
   const [query, setQuery] = useState<paramProduct>({
     q: "",
     PageIndex: 1,
-    PageSize: 10,
+    PageSize: 15,
   });
   const selecterProduct = useAppSelector(
     (state) => state.product.productGetAll

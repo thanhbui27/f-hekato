@@ -2,6 +2,7 @@ import { IComment } from "src/types/comment";
 import userDefault from "src/assets/images/user-default.png";
 import Parser from 'html-react-parser';
 import "../styles.scss";
+import { getImage } from "src/constants/URLImage";
 
 interface IProps {
   comment : IComment
@@ -12,7 +13,7 @@ const Comment : React.FC<IProps> = ({comment}) => {
     <div className="comment">
       <div className="user">
         <div className="user-image">
-          <img src={userDefault} alt="" />
+          <img style={{objectFit : "cover"}} src={comment.user.picture ?  getImage(comment.user.picture ) : userDefault} alt="" />
         </div>
         <div className="user-meta">
           <div className="name">{comment.user.fullName}</div>

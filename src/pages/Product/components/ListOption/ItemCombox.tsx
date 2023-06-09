@@ -12,7 +12,7 @@ const ItemCombox: React.FC<PropsItemCombox> = ({ Option, colorChecked, colorNor 
     return (
         <div className="item__combox">
             <label > {Option.title} {Option?.icon} 
-                <input type="checkbox" value={Option.value} name={Option.value} />
+                <input type="checkbox" value={Option.value} name={Option.title} />
                 <span className="geekmark" style={{ "--colorChecked": colorChecked , "--colorNor": colorNor } as React.CSSProperties} ></span>
             </label>
         </div>
