@@ -1,5 +1,11 @@
 import request from "src/services/request";
-import { List_imageV2, list_image, paramProduct, product } from "./types";
+import {
+  List_imageV2,
+  ProductV2,
+  list_image,
+  paramProduct,
+  product,
+} from "./types";
 import { Response } from "src/types/users";
 import { IResponePagination } from "src/types/response";
 
@@ -10,13 +16,24 @@ const productApi = {
       method: "POST",
       data: params,
     }),
-  deleteProduct: async (id: number) => await request({
-    url: "/api/Product/Delete",
-    method: "DELETE",
-    data : {
-      productId : id
-    }
-  }),
+  filterProduct: async (query: string) =>
+    await request<IResponePagination<product[]>>({
+      url: `/api/Product/FilterProduct?${query}`,
+      method: "GET",
+    }),
+  searchProduct: async (key: string) =>
+    await request<Response<ProductV2[]>>({
+      url: `/api/Product/SearchProduct?key=${key}`,
+      method: "GET",
+    }),
+  deleteProduct: async (id: number) =>
+    await request({
+      url: "/api/Product/Delete",
+      method: "DELETE",
+      data: {
+        productId: id,
+      },
+    }),
   UploadImageProduct: async (params: FormData) =>
     await request<Response<list_image[]>>({
       url: `/api/Product/UploadImage`,

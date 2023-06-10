@@ -16,6 +16,8 @@ export interface IProductListOption {
     id : number,
     title? : string,
     option? : IOption[],
+    keys :string,
     colorChecked : string,
     colorNor : string,
+    typeInput : string
 }

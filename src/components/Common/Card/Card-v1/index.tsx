@@ -2,7 +2,6 @@ import "./Card.scss";
 import Cart from "../../../../assets/icons/cart.svg";
 import heart from "../../../../assets/icons/heart.svg";
 import search from "../../../../assets/icons/search-plus.svg";
-import image from "../../../../assets/images/image-2.png";
 import CustomerButton from "../../CustomerButton";
 import { useNavigate } from "react-router-dom";
 import { product } from "src/services/api/product/types";

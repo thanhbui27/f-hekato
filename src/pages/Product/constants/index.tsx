@@ -33,11 +33,14 @@ export const dataListOption: IProductListOption[] = [
     {
         id: 1,
         title: "Product Brand",
+        typeInput : "checkbox",
+        keys : "productBrand",
         option: [
             {
                 id: 1,
                 title: "Coaster Furniture",
                 value: "coaster_furniture",
+
             },
             {
                 id: 2,
@@ -74,6 +77,8 @@ export const dataListOption: IProductListOption[] = [
     {
         id: 2,
         title: "Discount Offer",
+        keys : "discount",
+        typeInput : "radio",
         option: [
             {
                 id: 1,
@@ -97,6 +102,8 @@ export const dataListOption: IProductListOption[] = [
     {
         id: 3,
         title: "Rating Item",
+        keys : "rating",
+        typeInput : "radio",
         option: [
             {
                 id: 1,
@@ -135,6 +142,8 @@ export const dataListOption: IProductListOption[] = [
     {
         id : 4,
         title : "Categories",
+        keys : "categories",
+        typeInput : "checkbox",
         option : [
             {
                 id: 1,
@@ -178,26 +187,28 @@ export const dataListOption: IProductListOption[] = [
     {
         id : 5,
         title : "Price Filter",
+        keys : "price_filter",
+        typeInput : "radio",
         option : [
             {
                 id : 1,
-                title : "$0.00 - $150.00",
-                value : "0-150",
+                title : "0 - 350.000",
+                value : "0-350000",
             },
             {
                 id : 2,
-                title : "$150.00 - $350.00",
-                value : "150-350",
+                title : "350.000 - 700.000",
+                value : "350000-700000",
             },
             {
                 id : 3,
-                title : "$350.00 - $450.00",
-                value : "350-450",
+                title : "750.000 - 1.050.000",
+                value : "750000-1050000",
             },
             {
                 id : 4,
-                title : "$450.00 +",
-                value : "450",
+                title : "1.050.000+",
+                value : "1050000-0",
             }
         ],
         colorChecked: "#E60584",

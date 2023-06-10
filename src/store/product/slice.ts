@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productApi from "src/services/api/product";
 import {
   List_imageV2,
+  ProductV2,
   paramProduct,
   product,
 } from "src/services/api/product/types";
@@ -18,6 +19,7 @@ interface TProduct {
   productGetAll: IResponePagination<product[]>
   productById: product;
   list_image: List_imageV2[];
+  searchProduct : ProductV2[]
 }
 
 export const productCreate = createAsyncThunk(
@@ -25,6 +27,18 @@ export const productCreate = createAsyncThunk(
   async (data: FormData) => {
     try {
       const res = await productApi.createProduct(data);
+      return res.data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const productSearch = createAsyncThunk(
+  "product/PRODUCT_SEARCH",
+  async (data: string) => {
+    try {
+      const res = await productApi.searchProduct(data);
       return res.data;
     } catch (error) {
       return Promise.reject(error);
@@ -61,6 +75,18 @@ export const productUpdate = createAsyncThunk(
   async (data: FormData) => {
     try {
       const res = await productApi.updateProduct(data);
+      return res.data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const productFilter = createAsyncThunk(
+  "product/PRODUCT_FILTER",
+  async (data: string) => {
+    try {
+      const res = await productApi.filterProduct(data);
       return res.data;
     } catch (error) {
       return Promise.reject(error);
@@ -184,6 +210,7 @@ const initialState: TProduct = {
   productSeller: [],
   productTrending: [],
   productTrendSmall: [],
+  searchProduct : [],
   productById: {} as product,
   productGetAll: {
     items: [],
@@ -207,6 +234,28 @@ const productReducer = createSlice({
       state.status = "success";
     });
     builder.addCase(productCreate.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
+    builder.addCase(productFilter.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(productFilter.fulfilled, (state, action) => {
+      state.status = "success";
+      state.productGetAll.items = action.payload.items
+    });
+    builder.addCase(productFilter.rejected, (state, action) => {
+      state.status = "rejected";
+    });
+
+    builder.addCase(productSearch.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(productSearch.fulfilled, (state, action) => {
+      state.status = "success";
+      state.searchProduct = action.payload.data
+    });
+    builder.addCase(productSearch.rejected, (state, action) => {
       state.status = "rejected";
     });
 

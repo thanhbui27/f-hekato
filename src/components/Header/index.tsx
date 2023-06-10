@@ -9,21 +9,40 @@ import { Link } from "react-router-dom";
 import CustomerButton from "../Common/CustomerButton";
 import { useAppSelector } from "src/hooks/useAppSelector";
 import { logout } from "src/store/auth/slice";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "src/hooks/useAppDispatch";
+import { productSearch } from "src/store/product/slice";
+import { url } from "src/services/request";
 
 const Header: React.FC = () => {
   const { isAuth, me, isAdmin } = useAppSelector((state) => state.auth);
+  const { searchProduct } = useAppSelector((state) => state.product);
   const [open, setOpen] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (inputRef) {
+        if (inputRef.current?.value === search) {
+          dispatch(productSearch(search));
+        }
+      }
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search, inputRef]);
+
   const handleLogOut = async () => {
     await dispatch(logout());
   };
+
   return (
     <header className="header">
       <div className="header__bar">
@@ -110,11 +129,31 @@ const Header: React.FC = () => {
           </div>
 
           <div className="header__search">
-            <input type="text" />
+            <input
+              type="search"
+              ref={inputRef}
+              onChange={(e) => setSearch(e.target.value)}
+            />
             <CustomerButton
               element={<img src={Search} className="btn-search" alt="" />}
               customerCLass="btn__search"
             />
+            {searchProduct.length > 0 && search && (
+              <div className="result_search">
+                <div className="result_collection">
+                  {searchProduct.length > 0 && searchProduct.map((item) => (
+                    Object.keys(item).length > 0 &&
+                    <div className="item_result">
+                      <img
+                        src={`${url}Resources${item.image_Url}`}
+                        alt={item.productName}
+                      />
+                      <p>{item.productName}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
