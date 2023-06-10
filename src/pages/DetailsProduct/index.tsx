@@ -13,12 +13,10 @@ import { useAppSelector } from "src/hooks/useAppSelector";
 const DetailsProduct = () => {
   const dispatch = useAppDispatch();
   const { pid } = useParams();
-  const detailProduct = useAppSelector((state) => state.product.productById);
-  const status = useAppSelector((state) => state.product.status);
-  
+  const detailProduct = useAppSelector((state) => state.product.productById);  
   useEffect(() => {
     dispatch(getProductById(Number(pid)));
-  }, []);
+  }, [pid]);
 
   return (
     <div className="details__product">
@@ -29,7 +27,7 @@ const DetailsProduct = () => {
         </div>
       </div>
       <div className="container">
-        {status === "success" && detailProduct && (
+        {detailProduct && (
           <InfoProduct detailProduct={detailProduct} />
         )}
       </div>

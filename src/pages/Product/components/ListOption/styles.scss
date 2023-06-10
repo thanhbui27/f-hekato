@@ -33,6 +33,20 @@
             background-color: var(--colorChecked);
         }
     }
+    input[type=radio] {
+        visibility: hidden;
+        cursor: pointer;
+        &:active ~ .geekmark {
+            background-color: red;
+        }
+        &:checked ~ .geekmark:after {
+            display: block;
+           
+        }
+        &:checked ~ .geekmark {
+            background-color: var(--colorChecked);
+        }
+    }
     .geekmark {
         position: absolute;
         top: 5px;

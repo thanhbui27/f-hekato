@@ -10,6 +10,19 @@
     display: grid;
     grid-template-columns: 1fr 3fr;
     margin-top: 100px;
+    &__left {
+      .clear-filter {
+        border: 1px solid #aaaaaa;
+        border-radius: 5px;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        cursor: pointer;
+        margin: 0 0 20px 0;
+      }
+    }
     &__right {
       .pagination {
         margin-top: 50px;
