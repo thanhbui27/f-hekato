@@ -28,6 +28,7 @@ const OrderUser = () => {
         ),
         total: item.total,
         status: item.payments.status,
+        createAt :  new Date(item.createAt).toDateString(),
       };
     });
   }, [orderByUser]);
