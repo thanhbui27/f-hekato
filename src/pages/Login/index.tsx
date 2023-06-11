@@ -7,6 +7,7 @@ import { AppDispatch } from "../../store/configureStore";
 import "./styles.scss";
 import { alert } from "../../components/Common/Alert";
 import {url} from "src/services/request"
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,6 +16,10 @@ const Login: React.FC = () => {
     userName: "",
     password: "",
   });
+  const [isloading, setIsLoading] = useState<boolean>(false)
+  const handleClose = () => {
+    setIsLoading(false)
+  }
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const res = await dispatch(authLogin(login));
@@ -26,10 +31,12 @@ const Login: React.FC = () => {
     }
   };
   const handleLoginGoogle = async () => {
+    setIsLoading(true)
     window.location.href = url+"google-signin"
   };
 
   const handleLoginFacebook= async () => {
+    setIsLoading(true)
     window.location.href = url+"facebook-signin"
   };
 
@@ -109,6 +116,13 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isloading}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 };
