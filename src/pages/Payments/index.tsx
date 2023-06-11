@@ -14,7 +14,7 @@ import { alert } from "src/components/Common/Alert";
 import { ETypePay } from "./types";
 import { PayMOMO, PayVnpay, createOrder } from "src/store/orders/slice";
 import { IParamUserOrder } from "src/services/api/orders/types";
-import { styled } from "@mui/material";
+import { Backdrop, CircularProgress, styled } from "@mui/material";
 
 const StyleError = styled("div")(() => ({
   width: "100%",
@@ -30,6 +30,11 @@ const Payment = () => {
   const { isAuth, me } = useAppSelector((state) => state.auth);
   const dispath = useAppDispatch();
   const nav = useNavigate();
+  const [isloading, setIsLoading] = useState<boolean>(false)
+
+  const handleClose = () => {
+    setIsLoading(false)
+  }
   useEffect(() => {
     if (isAuth) {
       if (
@@ -67,6 +72,7 @@ const Payment = () => {
 
     switch (typePay) {
       case ETypePay.NORMAL:
+        setIsLoading(true)
         const res = await dispath(
           createOrder({
             users: { ...data, id: me?.id! },
@@ -83,6 +89,7 @@ const Payment = () => {
         }
         return;
       case ETypePay.MOMO:
+        setIsLoading(true)
         let objMoMo = {
           users: { ...data, id: me?.id! },
           typePay: typePay,
@@ -92,11 +99,13 @@ const Payment = () => {
         const resMoMo = await dispath(PayMOMO(objMoMo))
         if(PayMOMO.fulfilled.match(resMoMo)){
            window.location.href = resMoMo.payload?.data.data!
+           handleClose()
         }else{
           alert("error", "Có lỗi xảy ra vui lòng thử lại")
         }
         return;
       case ETypePay.VNPAY:
+        setIsLoading(true)
         let obj = {
           users: { ...data, id: me?.id! },
           typePay: typePay,
@@ -106,6 +115,7 @@ const Payment = () => {
         const resVnPay = await dispath(PayVnpay(obj))
         if(PayVnpay.fulfilled.match(resVnPay)){
            window.location.href = resVnPay.payload?.data.data!
+           handleClose()
         }else{
           alert("error", "Có lỗi xảy ra vui lòng thử lại")
         }
@@ -221,6 +231,13 @@ const Payment = () => {
           <p>Giỏ hàng rỗng vui lòng thử lại</p>
         </StyleError>
       )}
+       <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isloading}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </form>
   );
 };

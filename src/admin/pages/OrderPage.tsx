@@ -11,6 +11,8 @@ import {
   Typography,
   Box,
   IconButton,
+  CircularProgress,
+  Backdrop,
 } from "@mui/material";
 // sections
 import { UserListToolbar } from "../sections/@dashboard/user";
@@ -73,6 +75,7 @@ const OrderPage = () => {
     paymentId: 0,
     anchorEl: null,
   });
+  const [isloading, setIsLoading] = useState<boolean>(false)
   const [openModal, setOpenModal] = useState(false);
   const [filterName, setFilterName] = useState("");
 
@@ -83,6 +86,9 @@ const OrderPage = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+  const handleClose = () => {
+    setIsLoading(false)
+  }
   const handleOpenMenu = (event: any, id: string[]) => {
     setOpen({
       orderId: Number(id[0]),
@@ -95,6 +101,7 @@ const OrderPage = () => {
     if (updateStatus.fulfilled.match(res)) {
       alert("success", res.payload?.message!);
       await dispath(getAllOrder(query));
+      handleClose()
       handleCloseMenu();
     } else {
       alert("error", "Cập nhật trạng thái thất bại");
@@ -103,9 +110,11 @@ const OrderPage = () => {
   const handleMenuPopup = (key: string) => {
     switch (key) {
       case StatusOrder.CANCELED:
+        setIsLoading(true)
         handleUpdateStatus(open.paymentId, StatusOrder.CANCELED);
         break;
       case StatusOrder.ORDER_CONFIRMED:
+        setIsLoading(true)
         handleUpdateStatus(open.paymentId, StatusOrder.ORDER_CONFIRMED);
         break;
       case StatusOrder.DETAIL:
@@ -138,65 +147,68 @@ const OrderPage = () => {
       return {
         id: `${item.orderId}-${item.payments.paymentId}`,
         fullName: item.users.fullName,
-        quantity: item.orderDetails.reduce((pre, next) => pre + next.quantity, 0),
+        quantity: item.orderDetails.reduce(
+          (pre, next) => pre + next.quantity,
+          0
+        ),
         total: item.total,
         status: item.payments.status,
         createAt: new Date(item.createAt).toDateString(),
       };
     });
-  }, [items]) 
+  }, [items]);
 
-  const columns: GridColDef[] =  [
-      { field: "id", headerName: "#", width: 100 },
-      {
-        field: "fullName",
-        headerName: "Tên khách hàng",
-        flex: 1,
-        renderCell: (params) => {
-          return (
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar alt={params.value} src={account.photoURL} />
-              <Typography variant="subtitle2" noWrap>
-                {params.value}
-              </Typography>
-            </Stack>
-          );
-        },
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "#", width: 100 },
+    {
+      field: "fullName",
+      headerName: "Tên khách hàng",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Avatar alt={params.value} src={account.photoURL} />
+            <Typography variant="subtitle2" noWrap>
+              {params.value}
+            </Typography>
+          </Stack>
+        );
       },
-      { field: "quantity", headerName: "Số lượng sản phẩm", flex: 1 },
-      { field: "total", headerName: "Tổng tiền", flex: 1 },
-      {
-        field: "status",
-        headerName: "Trạng thái",
-        flex: 1,
-        renderCell: (params) => {
-          return (
-            <Label color={statusDetails(params.value).color}>
-              {statusDetails(params.value).messager}
-            </Label>
-          );
-        },
+    },
+    { field: "quantity", headerName: "Số lượng sản phẩm", flex: 1 },
+    { field: "total", headerName: "Tổng tiền", flex: 1 },
+    {
+      field: "status",
+      headerName: "Trạng thái",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <Label color={statusDetails(params.value).color}>
+            {statusDetails(params.value).messager}
+          </Label>
+        );
       },
-      { field: "createAt", headerName: "Thời gian", flex: 1 },
-      {
-        field: "",
-        headerName: "",
-        width: 50,
-        renderCell: (params) => {
-          return (
-            <>
-              <IconButton
-                size="large"
-                color="inherit"
-                onClick={(e) => handleOpenMenu(e, params.row.id.split("-"))}
-              >
-                <Iconify icon={"eva:more-vertical-fill"} />
-              </IconButton>
-            </>
-          );
-        },
+    },
+    { field: "createAt", headerName: "Thời gian", flex: 1 },
+    {
+      field: "",
+      headerName: "",
+      width: 50,
+      renderCell: (params) => {
+        return (
+          <>
+            <IconButton
+              size="large"
+              color="inherit"
+              onClick={(e) => handleOpenMenu(e, params.row.id.split("-"))}
+            >
+              <Iconify icon={"eva:more-vertical-fill"} />
+            </IconButton>
+          </>
+        );
       },
-    ];
+    },
+  ];
 
   return (
     <>
@@ -278,6 +290,13 @@ const OrderPage = () => {
           </MenuItem>
         ))}
       </Popover>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isloading}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 };
